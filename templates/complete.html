@@ -27,8 +27,20 @@
     <main>
         <div class="col s12 m12 l12 center amber darken-2">
             <h1>Complete!!</h1>
+            
+                <!-- python連携。「〇〇さん、おめでとう」って表示してみたよ -->
+                {% block content %}
+                <div>
+                    <p>
+                        おめでとう、{{user_info[0]}} さん！！<br>
+                    </p>
+                </div>
+                {% endblock %}
+
             <h3>コースを修了しました</h3>
         </div>
+        
+
 
         <div class="container">
             <img src="img/mainvisual.jpg,quality=70,type=jpg" alt="" class="responsive-img">
@@ -45,6 +57,11 @@
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
+        </div>
+
+        <!-- トップページに戻るリンクを付けておきました（python連携なし） -->
+        <div>
+            <a href="/index">トップページへ</a><br>
         </div>
 
     </main>

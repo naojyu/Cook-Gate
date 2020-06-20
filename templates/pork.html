@@ -198,12 +198,15 @@
 
         <img src="img/mainvisual.jpg,quality=70,type=jpg" alt="" class="responsive-img">
 
-
-        <form action="#" class="center">
+        <!-- python連携。作れたボタンを押すと、Complete.htmlへ画面遷移します -->
+        <form action="/complete" method="POST" class="center">
             <p>
               <label>
                 <input type="checkbox" />
                 <span>できました</span>
+                <!-- python連携。作れたボタンを押すと、DBのcourse_porkに反映されます -->
+                <br>
+                <input type="submit" name="pork_btn" value="豚肉生姜焼きを作れた！！">
               </label>
             </p>
         </form>
