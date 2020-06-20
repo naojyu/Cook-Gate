@@ -13,6 +13,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <link rel="stylesheet" href="css/style.css">
 
     <title>Cook-Gate</title>
 </head>
@@ -34,34 +35,32 @@
             </div>
             <div class="nav-content">
                 <ul class="tabs tabs-transparent">
-                    <li class="tab disabled"><a href="#test1">このサイトの使い方</a></li>
-                    <li class="tab disabled"><a class="active" href="#test2">準備とお料理コース</a></li>
-                    <li class="tab disabled"><a href="#test3">できました写真</a></li>
-                    <!--                    <li class="tab"><a href="#test4">Test 4</a></li>-->
+                    <li class="tab"><a class="active" href="#howtosite">このサイトの使い方</a></li>
+                    <li class="tab"><a href="#test2">準備とお料理コース</a></li>
+                    <li class="tab"><a href="#test3">できました写真</a></li>
+                    <!--                    <li class="tab disabled"><a href="#test4">Test 4</a></li>-->
                 </ul>
             </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+            <li><a href="#">このサイトの使い方</a></li>
+            <li><a href="#">準備とお料理コース</a></li>
+            <li><a href="#">できました写真</a></li>
         </ul>
 
-        <div id="test1" class="col s12">Test 1</div>
-        <div id="test2" class="col s12">Test 2</div>
-        <div id="test3" class="col s12">Test 3</div>
-        <div id="test4" class="col s12">Test 4</div>
+        <!-- <div id="test1" class="col s12">Test 1</div> -->
+        <!-- <div id="test2" class="col s12">Test 2</div> -->
+        <!-- <div id="test3" class="col s12">Test 3</div> -->
+        <!-- <div id="test4" class="col s12">Test 4</div> -->
 
     </header>
 
     <main>
         <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
 
-        <div class="container">
-
-
-            <div class="row gray lighten-3 section">
+        <div class="">
+            <div class="row section gray">
                 <div class="col s12">
                     <h2>お料理ムリ！なあなたのためのお料理スタート応援サイトです</h2>
                 </div>
@@ -80,8 +79,8 @@
             </div>
 
 
-            <div class="section center">
-                <h2>このサイトの使い方</h2>
+            <div class="section center amber darken-2">
+                <h2 id="howtosite">このサイトの使い方</h2>
             </div>
 
             <div class="row section">
@@ -185,115 +184,78 @@
             </div>
 
 
-            <div class="section center">
-                <h2>お料理コース</h2>
-            </div>
+            <div>
+                <h2 class="amber section center">お料理コース</h2>
+            
+                <div class="container">
 
-            <div class="container">
-
-                <div class="row">
-                    <div class="col s12 m4">
+                <div class="row section">
+                    <div class="col s12 m6">
                         <div class="card">
-                            <div class="card-image">
-                                <img src="img/don.jpg">
-                                <span class="card-title">豚肉生姜焼き</span>
+                            <div class="card-content amber darken-2">
+                                <span class="center card-title activator grey-text text-darken-4">
+                                    豚肉生姜焼き
+                                    <!-- <i class="material-icons right">more_vert</i> -->
+                                </span>
+                                <!-- <p><a href="#">This is a link</a></p> -->
                             </div>
-                            <div class="card-content">
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">This is a link</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/don.jpg">
-                                <span class="card-title">サラダチキンのバンバンジー</span>
-                            </div>
-                            <div class="card-content">
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">This is a link</a>
+                            <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="img/don.jpg">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/don.jpg">
-                                <span class="card-title">乾燥わかめとねぎの味噌汁</span>
-                            </div>
-                            <div class="card-content">
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">This is a link</a>
-                            </div>
+                    <div class="col s12 m6">
+                        
+                            <div class="grey lighten-3 section">一番最初</div>
+                            <p>調理器具</p>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="img/don.jpg">
-                                    <span class="card-title">豚肉生姜焼き</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="img/don.jpg">
-                                    <span class="card-title">サラダチキンのバンバンジー</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="img/don.jpg">
-                                    <span class="card-title">乾燥わかめとねぎの味噌汁</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link</a>
-                                </div>
-                            </div>
-                        </div>
+                
+            <!-- </div> -->
 
-                    </div>
+            <div class="row">
+                <div class="col s12 m6 amber">
+                    <h3 class="center">豚の生姜焼き</h3>
+                </div>
+                <div class="col s12 m6 grey lighten-3">
+                    一番最初<br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
 
-            <div class="section center">
+            <div class="row">
+                <div class="col m6">
+                    <img class="responsive-img" src="img/don.jpg" alt="">
+                </div>
+
+                <div class="col m6">
+                    <p>調理道具</p>
+                    <ul>
+                        <li>包丁</li>
+                        <li>まな板</li>
+                        <li>包丁</li>
+                        <li>まな板</li>
+                        <li>包丁</li>
+                        <li>まな板</li>
+                        <li>包丁</li>
+                        <li>まな板</li>
+                        <li>包丁</li>
+                        <li>まな板</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+ 
+            <div class="section center amber darken-2">
                 <h2>もう困らないコラム</h2>
             </div>
             <div class="row section">
@@ -322,13 +284,13 @@
             </div>
 
             <div class="row section">
-                <div class="col s5">
+                <div class="col s12 m5">
                     <span class="flow-text">
                         <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
                     </span>
                 </div>
 
-                <div class="col s7">
+                <div class="col s12 m7">
                     <span class="flow-text">
                         <div class="row">
                             <div class="col s12">
@@ -343,6 +305,113 @@
                             </div>
                         </div>
                     </span>
+                </div>
+            </div>
+
+            <div class="section center amber darken-2">
+                <h2 id="#">できました！お料理アルバム</h2>
+            </div>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="img/don.jpg">
+                                <span class="card-title">豚肉生姜焼き</span>
+                            </div>
+                            <div class="card-content">
+                                <p>I am a very simple card. I am good at containing small bits of information.
+                                    I am convenient because I require little markup to use effectively.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="img/don.jpg">
+                                <span class="card-title">サラダチキンのバンバンジー</span>
+                            </div>
+                            <div class="card-content">
+                                <p>I am a very simple card. I am good at containing small bits of information.
+                                    I am convenient because I require little markup to use effectively.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="img/don.jpg">
+                                <span class="card-title">乾燥わかめとねぎの味噌汁</span>
+                            </div>
+                            <div class="card-content">
+                                <p>I am a very simple card. I am good at containing small bits of information.
+                                    I am convenient because I require little markup to use effectively.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="img/don.jpg">
+                                    <span class="card-title">豚肉生姜焼き</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. I am good at containing small bits of information.
+                                        I am convenient because I require little markup to use effectively.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">This is a link</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="img/don.jpg">
+                                    <span class="card-title">サラダチキンのバンバンジー</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. I am good at containing small bits of information.
+                                        I am convenient because I require little markup to use effectively.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">This is a link</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="img/don.jpg">
+                                    <span class="card-title">乾燥わかめとねぎの味噌汁</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>I am a very simple card. I am good at containing small bits of information.
+                                        I am convenient because I require little markup to use effectively.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">This is a link</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
