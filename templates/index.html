@@ -1,7 +1,7 @@
 {% extends "material/base.html" %}
 {% block content %}
 
-{% endblock %}
+
 
 
 
@@ -34,24 +34,24 @@
                 <a href="#" class="brand-logo">Cook-Gate</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） -->
+                    <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） ●-->
                     <li><a href="regist.html">新規登録</a></li>
-                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） -->
+                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
                     <li><a href="login.html">ログイン</a></li>
                     <li><a href="collapsible.html">レベル</a></li>
                     <li><a href="collapsible.html">コンプ！</a></li>
+                    <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
+                    <li><a href="/logout">ログアウト</a></li>
                 </ul>
             </div>
 
             <div>
                 <!-- python連携：ユーザーネームとコース完了率を表示 -->
-                {% block content %}
                 <div>
                     <p>
-                        ようこそ、{{user_info[1]}} さん。コース完了率：{{user_status}}／1（{{user_rate}}％）<br>
+                        ようこそ、{{user_info[1]}} さん。コース完了率：{{user_status}}／2（{{user_rate}}％）<br>
                     </p>
                 </div>
-                {% endblock %}
             </div>
             
             <div class="nav-content">
@@ -122,10 +122,12 @@
                             <div class="col s12 m6 offset-m6">
                                 <span class="flow-text">
                                     
-                                    <!-- python連携。このリンクをクリックすると、DBのcourse_porkテーブルに反映されます。 -->
-                                    <form action="/clk-pork" method="POST" class="valign-wrapper">
-                                        <input type="submit" name="pork_btn" value="豚肉生姜焼きを作る" class="btn-large amber darken-2 white-text">
-                                    </form>
+                                    <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
+                                    <form action="/course" method="POST">
+                                        <!-- 豚肉生姜焼き：コース「1」 -->
+                                        <input type="hidden" name="name" value="1">
+                                        <input type="submit" name="pork" value="豚肉生姜焼きを作る"><br>
+                                      </form>
 
                                 </span>
                             </div>
@@ -151,7 +153,15 @@
                             </div>
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
-                                    <a class="waves-effect waves-light btn-large amber darken-2">豚肉生姜焼きコース</a>
+                                    <a class="waves-effect waves-light btn-large amber darken-2">わかめのお味噌汁コース</a>
+
+                                    <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
+                                    <form action="/course" method="POST">
+                                        <!-- わかめと長ネギのお味噌汁：コース「2」 -->
+                                        <input type="hidden" name="name" value="2">
+                                        <input type="submit" name="soup" value="わかめと長ネギのお味噌汁を作る"><br>
+                                      </form> 
+
                                 </span>
                             </div>
                         </div>
@@ -476,3 +486,4 @@
 </html>
 
 
+{% endblock %}

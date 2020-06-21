@@ -1,0 +1,22 @@
+{% block content %}
+
+
+<div>
+  <p>
+    -------------------------<br>
+    soup.html<br>
+    ここは「味噌汁コース」の画面です。<br>
+    -------------------------<br>
+    <!-- 完成おめでとうボタン -->
+    <br>
+    <form action="/complete" method="POST">
+      <!-- name=name固定、valueはコースに合わせて値を変える -->
+      <input type="hidden" name="name" value="2">
+      <input type="submit" value="味噌汁を作れた！！" />
+    </form>
+    -------------------------<br>
+    
+  </p>
+</div>
+
+{% endblock %}
