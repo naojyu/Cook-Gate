@@ -204,9 +204,11 @@
               <label>
                 <input type="checkbox" />
                 <span>できました</span>
-                <!-- python連携。作れたボタンを押すと、DBのcourse_porkに反映されます -->
                 <br>
-                <input type="submit" name="pork_btn" value="豚肉生姜焼きを作れた！！">
+                <!-- python連携。作れたボタンを押すと、DBのcourse_statusに反映されます -->
+                <!-- name=name固定、valueはコースに合わせて値を変える -->
+                <input type="hidden" name="name" value="1">
+                <input type="submit" value="豚肉生姜焼きを作れた！！" />
               </label>
             </p>
         </form>
