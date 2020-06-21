@@ -5,8 +5,13 @@ from flask import Flask, render_template, request, redirect, session
 # 日時取ります
 # from datetime import datetime
 
+# CSSフレームワークをつかいます
+from flask_material import Material
+
 # appにflaskを定義する
 app = Flask(__name__)
+# CSSフレームワークのための追記
+Material(app)
 
 # セッション
 # セッション名は後で変えるう！！！！！
@@ -101,7 +106,7 @@ def login_post():
     c.close()
 
     if user_id is None:
-        return render_template("login.html")
+        return render_template("/login")
     else:
         # セッションを作る
         session["user_id"] = user_id
