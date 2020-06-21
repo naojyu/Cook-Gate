@@ -190,6 +190,7 @@ def select_course():
         return redirect("/login")
 
 
+
 # それぞれのコースの画面へリダイレクトする。
 # pork（豚肉生姜焼き）の画面を表示する
 @app.route("/pork")
