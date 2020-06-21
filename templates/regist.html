@@ -1,0 +1,23 @@
+{% block content %}
+
+
+<div>
+ここはregist.htmlです<br>
+<br>
+        <!-- 名前とパスワードで会員登録するページを作る -->
+        <h3>ユーザー登録</h3>
+
+        <!-- ルーティングは /regist メソッドはPOST（人に見られたくない情報！！）にする。 -->
+        <form action="/regist" method="POST">
+                お名前：<input type="text" name="name"><br>
+                パスワード：<input type="password" name="password"><br>
+                メールアドレス：<input type="text" name="email"><br>
+                <input type="submit" name="save" value="ユーザー登録する">
+        </form>
+        <br>
+
+        <!-- 既に登録済みの方向けリンク -->
+        <h4><a href="/login">既に登録済みの方はこちら</a></h4>
+</div>
+
+{% endblock %}

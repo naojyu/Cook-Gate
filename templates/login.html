@@ -1,0 +1,22 @@
+{% block content %}
+
+<div>
+ここはlogin.htmlです<br>
+<br>
+        <!-- 名前とパスワードで会員登録するページを作る -->
+        <h3>ログインする</h3>
+
+        <!-- ルーティングは /login メソッドはPOST（人に見られたくない情報！！）にする。 -->
+        <form action="/login" method="POST">
+                お名前：<input type="text" name="name"><br>
+                パスワード：<input type="password" name="password"><br>
+                メールアドレス：<input type="text" name="email"><br>
+                <input type="submit" name="save" value="ログインする">
+        </form>
+        <br>
+
+        <!-- 既に登録済みの方向けリンク -->
+        <h4><a href="/regist">まだユーザー登録がお済みでない方はこちら</a></h4>
+</div>
+
+{% endblock %}
