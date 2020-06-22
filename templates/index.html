@@ -35,9 +35,9 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） ●-->
-                    <li><a href="regist.html">新規登録</a></li>
+                    <li><a href="/regist">新規登録</a></li>
                      <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
-                    <li><a href="login.html">ログイン</a></li>
+                    <li><a href="/login">ログイン</a></li>
                     <li><a href="collapsible.html">レベル</a></li>
                     <li><a href="collapsible.html">コンプ！</a></li>
                     <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
@@ -49,7 +49,7 @@
                 <!-- python連携：ユーザーネームとコース完了率を表示 -->
                 <div>
                     <p>
-                        ようこそ、{{user_info[1]}} さん。コース完了率：{{user_status}}／2（{{user_rate}}％）<br>
+                        ようこそ、{{user_info}} さん。コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）<br>
                     </p>
                 </div>
             </div>
