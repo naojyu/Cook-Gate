@@ -1,3 +1,10 @@
+{% extends "material/base.html" %}
+{% block content %}
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -13,7 +20,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 
     <title>Cook-Gate</title>
 </head>
@@ -27,30 +34,30 @@
                 <a href="#" class="brand-logo">Cook-Gate</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） -->
-                    <li><a href="/regist">新規登録</a></li>
-                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） -->
-                    <li><a href="/login">ログイン</a></li>
+                    <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） ●-->
+                    <li><a href="regist.html">新規登録</a></li>
+                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
+                    <li><a href="login.html">ログイン</a></li>
                     <li><a href="collapsible.html">レベル</a></li>
                     <li><a href="collapsible.html">コンプ！</a></li>
+                    <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
+                    <li><a href="/logout">ログアウト</a></li>
                 </ul>
             </div>
 
             <div>
                 <!-- python連携：ユーザーネームとコース完了率を表示 -->
-                {% block content %}
                 <div>
                     <p>
-                        ようこそ、{{user_info[1]}} さん。コース完了率：{{user_status}}／1（{{user_rate}}％）<br>
+                        ようこそ、{{user_info[1]}} さん。コース完了率：{{user_status}}／2（{{user_rate}}％）<br>
                     </p>
                 </div>
-                {% endblock %}
             </div>
             
             <div class="nav-content">
                 <ul class="tabs tabs-transparent">
                     <li class="tab"><a class="active" href="#howtosite">このサイトの使い方</a></li>
-                    <li class="tab"><a href="#test2">準備とお料理コース</a></li>
+                    <li class="tab"><a href="#corse">準備とお料理コース</a></li>
                     <li class="tab"><a href="#test3">できました写真</a></li>
                     <!--                    <li class="tab disabled"><a href="#test4">Test 4</a></li>-->
                 </ul>
@@ -71,7 +78,7 @@
     </header>
 
     <main>
-        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
+        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
 
         <div class="">
             <div class="row section">
@@ -98,9 +105,74 @@
             </div>
 
             <div class="row section">
+                <div class="col s12 m5">
+                    <span class="flow-text">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
+                    </span>
+                </div>
+
+                <div class="col s12 m7">
+                    <span class="flow-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <span class="flow-text">
+                                    包丁も鍋もありません。とにかく何かをつくってみたい。そんなあなたは
+                                </span>
+                            </div>
+                            <div class="col s12 m6 offset-m6">
+                                <span class="flow-text">
+                                    
+                                    <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
+                                    <form action="/course" method="POST">
+                                        <!-- 豚肉生姜焼き：コース「1」 -->
+                                        <input type="hidden" name="name" value="1">
+                                        <input type="submit" name="pork" value="豚肉生姜焼きを作る"><br>
+                                      </form>
+
+                                </span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row section">
                 <div class="col s5">
                     <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
+                    </span>
+                </div>
+
+                <div class="col s7">
+                    <span class="flow-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <span class="flow-text">
+                                    包丁も鍋もありません。とにかく何かをつくってみたい。そんなあなたは
+                                </span>
+                            </div>
+                            <div class="col s6 offset-s6">
+                                <span class="flow-text">
+                                    <a class="waves-effect waves-light btn-large amber darken-2">わかめのお味噌汁コース</a>
+
+                                    <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
+                                    <form action="/course" method="POST">
+                                        <!-- わかめと長ネギのお味噌汁：コース「2」 -->
+                                        <input type="hidden" name="name" value="2">
+                                        <input type="submit" name="soup" value="わかめと長ネギのお味噌汁を作る"><br>
+                                      </form> 
+
+                                </span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row section">
+                <div class="col s5">
+                    <span class="flow-text">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
                     </span>
                 </div>
 
@@ -115,12 +187,6 @@
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
                                     <a class="waves-effect waves-light btn-large amber darken-2">豚肉生姜焼きコース</a>
-
-                                    <!-- python連携。このリンクをクリックすると、DBのcourse_porkテーブルに反映されます。 -->
-                                    <form action="/clk-pork" method="POST">
-                                        <input type="submit" name="pork_btn" value="豚肉生姜焼きを作る">
-                                    </form>
-
                                 </span>
                             </div>
                         </div>
@@ -131,57 +197,7 @@
             <div class="row section">
                 <div class="col s5">
                     <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
-                    </span>
-                </div>
-
-                <div class="col s7">
-                    <span class="flow-text">
-                        <div class="row">
-                            <div class="col s12">
-                                <span class="flow-text">
-                                    包丁も鍋もありません。とにかく何かをつくってみたい。そんなあなたは
-                                </span>
-                            </div>
-                            <div class="col s6 offset-s6">
-                                <span class="flow-text">
-                                    <a class="waves-effect waves-light btn-large amber darken-2">豚肉生姜焼きコース</a>
-                                </span>
-                            </div>
-                        </div>
-                    </span>
-                </div>
-            </div>
-
-            <div class="row section">
-                <div class="col s5">
-                    <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
-                    </span>
-                </div>
-
-                <div class="col s7">
-                    <span class="flow-text">
-                        <div class="row">
-                            <div class="col s12">
-                                <span class="flow-text">
-                                    包丁も鍋もありません。とにかく何かをつくってみたい。そんなあなたは
-                                </span>
-                            </div>
-                            <div class="col s6 offset-s6">
-                                <span class="flow-text">
-                                    <a class="waves-effect waves-light btn-large amber darken-2">豚肉生姜焼きコース</a>
-                                </span>
-                            </div>
-                        </div>
-                    </span>
-                </div>
-            </div>
-
-            <div class="row section">
-                <div class="col s5">
-                    <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
                     </span>
                 </div>
 
@@ -205,7 +221,7 @@
 
 
             <div>
-                <h2 class="amber section center">お料理コース</h2>
+                <h2 id="corse" class="amber section center">お料理コース</h2>
             
                 <div class="container">
 
@@ -220,7 +236,7 @@
                                 <!-- <p><a href="#">This is a link</a></p> -->
                             </div>
                             <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="img/don.jpg">
+                            <img class="activator" src="../static/img/don.jpg">
                             </div>
                         </div>
                     </div>
@@ -251,7 +267,7 @@
 
             <div class="row">
                 <div class="col m6">
-                    <img class="responsive-img" src="img/don.jpg" alt="">
+                    <img class="responsive-img" src="../static/img/don.jpg" alt="">
                 </div>
 
                 <div class="col m6">
@@ -281,7 +297,7 @@
             <div class="row section">
                 <div class="col s5">
                     <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
                     </span>
                 </div>
 
@@ -306,7 +322,7 @@
             <div class="row section">
                 <div class="col s12 m5">
                     <span class="flow-text">
-                        <img class="responsive-img" src="img/mainvisual.jpg,quality=70,type=jpg">
+                        <img class="responsive-img" src="../static/img/mainvisual.jpg,quality=70,type=jpg">
                     </span>
                 </div>
 
@@ -337,7 +353,7 @@
                     <div class="col s12 m6">
                         <div class="card">
                             <div class="card-image">
-                                <img src="img/don.jpg">
+                                <img src="../static/img/don.jpg">
                                 <span class="card-title">豚肉生姜焼き</span>
                             </div>
                             <div class="card-content">
@@ -353,7 +369,7 @@
                     <div class="col s12 m6">
                         <div class="card">
                             <div class="card-image">
-                                <img src="img/don.jpg">
+                                <img src="../static/img/don.jpg">
                                 <span class="card-title">サラダチキンのバンバンジー</span>
                             </div>
                             <div class="card-content">
@@ -369,7 +385,7 @@
                     <div class="col s12 m6">
                         <div class="card">
                             <div class="card-image">
-                                <img src="img/don.jpg">
+                                <img src="../static/img/don.jpg">
                                 <span class="card-title">乾燥わかめとねぎの味噌汁</span>
                             </div>
                             <div class="card-content">
@@ -386,7 +402,7 @@
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="img/don.jpg">
+                                    <img src="../static/img/don.jpg">
                                     <span class="card-title">豚肉生姜焼き</span>
                                 </div>
                                 <div class="card-content">
@@ -402,7 +418,7 @@
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="img/don.jpg">
+                                    <img src="../static/img/don.jpg">
                                     <span class="card-title">サラダチキンのバンバンジー</span>
                                 </div>
                                 <div class="card-content">
@@ -418,7 +434,7 @@
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="img/don.jpg">
+                                    <img src="../static/img/don.jpg">
                                     <span class="card-title">乾燥わかめとねぎの味噌汁</span>
                                 </div>
                                 <div class="card-content">
@@ -468,3 +484,6 @@
 </body>
 
 </html>
+
+
+{% endblock %}
