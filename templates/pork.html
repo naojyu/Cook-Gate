@@ -1,3 +1,5 @@
+{% extends "material/base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -308,24 +310,45 @@
 
         <!-- python連携。作れたボタンを押すと、Complete.htmlへ画面遷移します -->
         <form action="/complete" method="POST" class="center">
-            <p>
                 <label>
                     <!-- python連携。作れたボタンを押すと、DBのcourse_statusに反映されます -->
                     <!-- name=name固定、valueはコースに合わせて値を変える -->
                     <input type="hidden" name="name" value="1">
                     <input type="submit" value="豚肉生姜焼きを作れた！！" / class="btn-large amber darken-2">
                 </label>
-            </p>
         </form>
 
 
     </main>
 
-    <footer>
-
-    </footer>
+    <footer class="page-footer amber darken-2">
+        <!-- <div class="container"> -->
+          <!-- <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Links</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+        <div class="footer-copyright">
+          <div class="container">
+          © 2014 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">TOPへ戻る</a>
+          </div>
+        </div>
+      </footer>
 
 
 </body>
 
 </html>
+{% endblock %}
