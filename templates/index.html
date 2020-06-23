@@ -39,7 +39,7 @@
                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
                     <li><a href="/login">ログイン</a></li>
                     <li><a href="collapsible.html">レベル</a></li>
-                    <li><a href="collapsible.html">コンプ！</a></li>
+                    <li><a href="collapsible.html">コース完了率</a></li>
                     <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
                     <li><a href="/logout">ログアウト</a></li>
                 </ul>
@@ -48,7 +48,7 @@
             <div>
                 <!-- python連携：ユーザーネームとコース完了率を表示 -->
                 <div>
-                    <p>
+                    <p style="display: none;">
                         ようこそ、{{user_info}} さん。コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）<br>
                     </p>
                 </div>
@@ -83,7 +83,7 @@
         <div class="">
             <div class="row section">
                 <div class="col s12 grey lighten-3">
-                    <h2>お料理ムリ！なあなたのためのお料理スタート応援サイトです</h2>
+                    <h2 class="abc">お料理ムリ！なあなたのためのお料理スタート応援サイトです</h2>
                 </div>
                 <div class="col s12">
                     <p class="center-align">包丁を持ったことがない。</p>
