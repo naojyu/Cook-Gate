@@ -7,10 +7,30 @@
     soup.html<br>
     ここは「味噌汁コース」の画面です。<br>
     -------------------------<br>
+    <ul>
+      <!-- 非ログイン -->
+      {% if user_id == 0 %}
+      <li>ゲストさん</li>
+      <!-- ログイン -->
+      {% else %}
+      <li>{{user_info}}さん</li>
+      <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+      {% endif %}
+     </ul>
+    -------------------------<br>
+    
+    <!-- チェックボタン：お味噌汁=2 -->
+    <p>※レベルアップボタン（レベル値取れるけど毎回リロードしちゃう）</p>
+    <form action="/level" method="POST">
+      <input type="hidden" name="name" value="2">
+      <input type="submit" name="check" value="できました" /><br>
+    </form>
+    
+    -------------------------<br>
     <!-- 完成おめでとうボタン -->
     <br>
     <form action="/complete" method="POST">
-      <!-- name=name固定、valueはコースに合わせて値を変える -->
+      <!-- name=name固定、valueはコースに合わせて値を変える：お味噌汁=2 -->
       <input type="hidden" name="name" value="2">
       <input type="submit" value="味噌汁を作れた！！" />
     </form>
