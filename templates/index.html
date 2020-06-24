@@ -39,7 +39,7 @@
                     <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
                     <li><a href="/login">ログイン</a></li>
                     <li><a href="collapsible.html">レベル</a></li>
-                    <li><a href="collapsible.html">コンプ！</a></li>
+                    <li><a href="collapsible.html">コース完了率</a></li>
                     <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
                     <li><a href="/logout">ログアウト</a></li>
                 </ul>
@@ -83,7 +83,7 @@
         <div class="">
             <div class="row section">
                 <div class="col s12 grey lighten-3">
-                    <h2>お料理ムリ！なあなたのためのお料理スタート応援サイトです</h2>
+                    <h2 class="abc">お料理ムリ！なあなたのためのお料理スタート応援サイトです</h2>
                 </div>
                 <div class="col s12">
                     <p class="center-align">包丁を持ったことがない。</p>
@@ -103,37 +103,38 @@
             <div class="section center amber darken-2">
                 <h2 id="howtosite">このサイトの使い方</h2>
             </div>
+            <div class="container">
+                <div class="row center">
 
-            <div class="row center">
+                    <div class="col s4">
+                        <i class="large material-icons">access_time</i>
+                        <p class="center">
+                            時間がなくても大丈夫
+                        </p>
+                        <p class="light center">
+                            できるところから、ステップバイステップで応援します！レベルアップ機能は会員機能です。ぜひ会員登録して使ってください！じっくりすすめたいあなたは、調理道具や調味料のコースがあります。
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <i class="large material-icons">child_care</i>
+                        <p class="center">
+                            はじめてでもおいしい！の体験
+                        </p>
+                        <p class="light center">
+                            失敗しないコツをたくさん紹介しています！レシピの例はこの下のお料理コースから！いろいろなコースをつかってレベルアップしよう！
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <i class="large material-icons">autorenew</i>
+                        <p class="center">
+                            もう困らないコラムでお料理に詳しくなる
+                        </p>
+                        <p class="light center">
+                            お料理でレベルアップしながらコラムも読もう。使い回しレシピも紹介してるから、種類が豊富。繰り返し作っても飽きません。料理の成功体験ができたら、他のレシピサイトにいってみよう。
+                        </p>
+                    </div>
 
-                <div class="col s4">
-                    <i class="large material-icons">access_time</i>
-                    <p class="center">
-                        時間がなくても大丈夫
-                    </p>
-                    <p class="light center">
-                        できるところから、ステップバイステップで応援します！レベルアップ機能は会員機能です。ぜひ会員登録して使ってください！じっくりすすめたいあなたは、調理道具や調味料のコースがあります。
-                    </p>
                 </div>
-                <div class="col s4">
-                    <i class="large material-icons">child_care</i>
-                    <p class="center">
-                        はじめてでもおいしい！の体験
-                    </p>
-                    <p class="light center">
-                        失敗しないコツをたくさん紹介しています！レシピの例はこの下のお料理コースから！いろいろなコースをつかってレベルアップしよう！
-                    </p>
-                </div>
-                <div class="col s4">
-                    <i class="large material-icons">autorenew</i>
-                    <p class="center">
-                        もう困らないコラムでお料理に詳しくなる
-                    </p>
-                    <p class="light center">
-                        お料理でレベルアップしながらコラムも読もう。使い回しレシピも紹介してるから、種類が豊富。繰り返し作っても飽きません。料理の成功体験ができたら、他のレシピサイトにいってみよう。
-                    </p>
-                </div>
-
             </div>
 
             <div class="section center amber darken-2">
@@ -196,6 +197,7 @@
                                 乾燥わかめ、ネギ（または好みの野菜）、だし入りみそ
                             </p>
                         </div>
+
                         <div class="col s12 m12">
 
                             <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
@@ -209,7 +211,7 @@
                         </div>
                     </div>
                     <!-- =============================================== -->
-                    < class="row">
+                    <class="row">
                         <div class="col s12 m12">
                             <h3 class="amber center">好みのお肉とカット野菜のカレーライス</h3>
                         </div>
@@ -288,7 +290,7 @@
                 </div>
             </div>
             <div class="section center amber darken-2">
-                <h2 id="howtosite">応用のきくレシピ</h2>
+                <h2 id="">応用のきくレシピ</h2>
             </div>
             <div class="container">
 

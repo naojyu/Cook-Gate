@@ -4,12 +4,3 @@ html {
     font-family: 'Noto Sans JP';
 }
 
-.mx-auto {
-    display: block;
-    margin: 0 auto; 
-}
-
-p .abc {
-    color: red;
-    background-color: orange;
-}
