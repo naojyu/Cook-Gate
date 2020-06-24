@@ -29,7 +29,16 @@
                     <li><a href="/index#howtosite">このサイトの使い方</a></li>
                     <li><a href="#">準備とお料理コース</a></li>
                     <li><a href="#">できました写真</a></li>
+
+                    <!-- 非ログイン -->
+                    {% if user_id == 0 %}
+                    <li>ゲストさん</li>
+                    <!-- ログイン -->
+                    {% else %}
+                    <li>{{user_info}}さん</li>
                     <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+                    {% endif %}
+
                 </ul>
             </div>
         </nav>
@@ -83,7 +92,13 @@
             </p>
         </form>
 
-
+        <!-- チェックボタン。豚しょうが=1 -->
+        <p>※レベルアップボタン（レベル値取れるけど毎回リロードしちゃう）</p>
+        <form action="/level" method="POST">
+          <input type="hidden" name="name" value="1">
+          <input type="submit" name="check" value="できました" /><br>
+        </form>
+  
 
 
         <div class="section center amber-text text-darken-3">
@@ -338,9 +353,9 @@
         <form action="/complete" method="POST" class="center">
             <label>
                 <!-- python連携。作れたボタンを押すと、DBのcourse_statusに反映されます -->
-                <!-- name=name固定、valueはコースに合わせて値を変える -->
+                <!-- name=name固定、valueはコースに合わせて値を変える。豚しょうが=1 -->
                 <input type="hidden" name="name" value="1">
-                <input type="submit" value="豚肉生姜焼きを作れた！！" / class="btn-large amber darken-2">
+                <input type="submit" value="豚のしょうが焼きを作れた！！" / class="btn-large amber darken-2">
             </label>
         </form>
 
@@ -372,6 +387,7 @@
             </div>
         </div>
     </footer>
+
 
 
 </body>

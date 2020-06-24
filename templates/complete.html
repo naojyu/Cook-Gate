@@ -50,6 +50,22 @@
 
             <div class="row amber">
                 <div class="col s12 m12 center">完成したお料理を写真に残しておきましょう</div>
+
+                <!-- 写真アップロードボタン -->
+                {% if user_id > 0 %}
+                画像登録するとトップページへリダイレクトしちゃう（SNSシェアできません＞＜）
+    
+                <!-- 画像ファイル登録・更新 -->
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                  <input type="hidden" name="name" value="{{course}}">
+                  <input type="file" name="upload">
+                  <br>
+                  <input type="submit" name="img-btn" value="画像登録">
+                  <br>
+                </form>
+                {% endif %}
+
+
                 <div class="col s12 m12 center">SNSシェア<br>
                     <a href="https://twitter.com/intent/tweet?button_hashtag=CookGate&ref_src=twsrc%5Etfw" 
                     class="twitter-hashtag-button" 
@@ -62,7 +78,7 @@
             </div>
         </div>
 
-        <!-- トップページに戻るリンクを付けておきました（python連携なし） -->
+        <!-- トップページに戻るリンク -->
         <div>
             <a href="/index">トップページへ</a><br>
         </div>

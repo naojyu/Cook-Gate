@@ -34,24 +34,27 @@
                 <a href="/index" class="brand-logo" style="font-family: 'Comic Sans MS';">cookgate</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <!-- 「新規登録」から、/registerへ遷移させています（python連携なし） ●-->
-                    <li><a href="/regist">新規登録</a></li>
-                    <!-- 「ログイン」から、/loginへ遷移させています（python連携なし） ●-->
-                    <li><a href="/login">ログイン</a></li>
-                    <li><a href="collapsible.html">レベル</a></li>
-                    <li><a href="collapsible.html">コース完了率</a></li>
+
+                    <!-- python連携：ユーザーネームとコース完了率を表示 -->
+                    {% if user_id >= 1 %}
+                    <!-- ログインユーザー情報 -->
+                    <li>ようこそ、{{user_info}} さん。</li>
+                    <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
                     <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
                     <li><a href="/logout">ログアウト</a></li>
-                </ul>
-            </div>
 
-            <div>
-                <!-- python連携：ユーザーネームとコース完了率を表示 -->
-                <div>
-                    <p>
-                        ようこそ、{{user_info}} さん。コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）<br>
-                    </p>
-                </div>
+                    {% else %}
+                    <li>ようこそ、ゲストさん。</li>
+                    <!-- 「新規登録」から、/registerへ遷移 ●-->
+                    <li><a href="/regist">新規登録</a></li>
+                    <!-- 「ログイン」から、/loginへ遷移（python連携なし） ●-->
+                    <li><a href="/login">ログイン</a></li>
+                    {% endif %}                    
+
+                    <!-- <li><a href="collapsible.html">レベル</a></li>
+                    <li><a href="collapsible.html">コース完了率</a></li> -->
+
+                </ul>
             </div>
 
             <div class="nav-content">
@@ -92,11 +95,17 @@
                     <p class="center-align"><br></p>
                     <p class="center-align">お料理だって環境構築からはじまる。</p>
                     <p class="center-align"><br></p>
-                    <p class="center-align">COOK*GATEはお料理超ビギナーのあなたを応援するお料理入門サイトです</p>
+                    <p class="center-align">cookgateは、お料理超ビギナーのあなたを応援するお料理入門サイトです</p>
                 </div>
+
+                <!-- python連携 -->
+                <!-- 未ログインの時だけ、「新規登録」ボタンを表示する -->
+                {% if user_id >= 1 %}
+                {% else %}
                 <div class="col s12 center">
-                    <a class="waves-effect waves-light btn amber darken-2" href="#">新規登録</a>
+                    <a class="waves-effect waves-light btn amber darken-2" href="/regist">新規登録</a>
                 </div>
+                {% endif %}
             </div>
 
 
@@ -145,7 +154,7 @@
                 <!-- =============================================== -->
                 <div class="row">
                     <div class="col s12 m12">
-                        <h3 class="amber center">豚肉生姜焼き</h3>
+                        <h3 class="amber center">豚のしょうが焼き</h3>
                     </div>
 
                     <div class="col s12 m6">
@@ -168,7 +177,7 @@
                         <form action="/course" method="POST" class="center">
                             <!-- 豚肉生姜焼き：コース「1」 -->
                             <input type="hidden" name="name" value="1">
-                            <input type="submit" name="pork" value="豚肉生姜焼きを作る" class="btn-large btn-flat amber">
+                            <input type="submit" name="pork" value="豚のしょうが焼きを作る" class="btn-large btn-flat amber">
                         </form>
 
                     </div>
@@ -202,10 +211,9 @@
 
                             <!-- python連携。このリンクをクリックすると、DBのcourse_statusテーブルに反映されます。 -->
                             <form action="/course" method="POST" class="center">
-                                <!-- 豚肉生姜焼き：コース「1」 -->
-                                <!-- わかめと長ネギのお味噌汁：コース「2」 -->
+                                <!-- わかめ＆ネギのお味噌汁：コース「2」 -->
                                 <input type="hidden" name="name" value="2">
-                                <input type="submit" name="soup" value="わかめと長ネギのお味噌汁を作る"
+                                <input type="submit" name="soup" value="乾燥わかめとねぎのお味噌汁を作る"
                                     class="btn-large btn-flat amber">
                             </form>
                         </div>
