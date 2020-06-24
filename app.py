@@ -120,6 +120,7 @@ def login_post():
 # index.htmlに会員情報を表示させています。
 @app.route("/index")
 def dbtest():
+    # ユーザーがログインしている場合
     if "user_id" in session:
         # セッションからユーザーIDを取得する。
         user_id = session["user_id"][0]
@@ -130,8 +131,8 @@ def dbtest():
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
         # ユーザー情報を取得し表示
-        c.execute("select id,name,password,email from user where id = ?", (user_id,))
-        user_info = c.fetchone()
+        c.execute("select name from user where id = ?", (user_id,))
+        user_info = c.fetchone()[0]
         print("-------------------------")
         print(user_info)
         
@@ -141,22 +142,32 @@ def dbtest():
         user_status = len(c.fetchall())
         print(user_status)
 
+        # コースの数
+        course_num = 2
+
         # コース完了率を算出（％、整数になるよう四捨五入）
         # 全「2」コースとしてある。（豚肉と味噌汁）
-        user_rate = round((user_status / 2) * 100)
+        user_rate = round((user_status / course_num) * 100)
         print("========================")
         print(user_rate)
 
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num)
+
+    # ログインしていない場合：ゲストさん表示
     else:
-        return redirect("/login")
+        user_info = "ゲスト"
+        user_status = "-"
+        user_rate = "-"
+        course_num = "-"
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num)
 
 
-# コース選択情報を取る
+# 各コースの画面
 @app.route("/course", methods=["POST"])
 def select_course():
+    # ユーザーがログインしている場合
     if "user_id" in session:
         # セッションからユーザーIDを取得する。
         user_id = session["user_id"][0]
@@ -167,31 +178,50 @@ def select_course():
         status = 0
 
         # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
-        # 豚肉：1
-        # 味噌汁：2
         course = request.form.get("name")
         print("==========================")
         print(course)
 
+        # DBに接続
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
         # DBに開始情報を書き込む（新規登録）すでにあっても、ボタンを押すたびに登録される。
         c.execute("insert into course_status values(null,?,?,?)", (user_id,course,status,))
-        # リダイレクトするコースのルーティングを取る。（どのhtmlファイルに行く？）
+        # リダイレクトするコースのルーティングをDBのcourseテーブルから取得（どのhtmlファイルに行く？）
         c.execute("select page from course where id=?", (course,))
         page = c.fetchone()[0]
         print(page)
 
         conn.commit()
         c.close()
-
+        # 取得したページへリダイレクト
         return redirect(page)
     else:
-        return redirect("/login")
+        # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
+        # 豚肉：1
+        # 味噌汁：2
+        course = request.form.get("name")
+        print("==========================")
+        print(course)
+
+        # DBに接続
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+        # リダイレクトするコースのルーティングを取る。（どのhtmlファイルに行く？）
+        # DBのcourseステーブルから取得。
+        c.execute("select page from course where id=?", (course,))
+        page = c.fetchone()[0]
+        print(page)
+
+        conn.commit()
+        c.close()
+        # 取得したページへリダイレクト
+        return redirect(page)
 
 
 
 # それぞれのコースの画面へリダイレクトする。
+# （もしユーザー名/ゲストさん表示、完了率を表示させるなら、セッションを追加できます）
 # pork（豚肉生姜焼き）の画面を表示する
 @app.route("/pork")
 def pork():
@@ -208,6 +238,7 @@ def soup():
 # 「pork」コースの完了ボタン（/complete）を押した時、
 @app.route("/complete", methods=["POST"])
 def complete():
+    # ログインしている場合
     if "user_id" in session:
         # セッションからユーザーIDを取得する。
         user_id = session["user_id"][0]
@@ -220,8 +251,6 @@ def complete():
         print(comp_dt)
 
         # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
-        # 豚肉：1
-        # 味噌汁：2
         course = request.form.get("name")
         print("================")
         print(course)
@@ -233,13 +262,13 @@ def complete():
 
         # ユーザー情報を取得し表示
         c.execute("select name from user where id = ?", (user_id,))
-        user_info = c.fetchone()
+        user_info = c.fetchone()[0]
         print("-------------------------")
         print(user_info)
 
         # コース名を取得するSQL文をここに書く。
         c.execute("select course_name from course where id = ?", (course,))
-        user_course = c.fetchone()
+        user_course = c.fetchone()[0]
         print("-------------------------")
         print(user_course)
 
@@ -247,13 +276,32 @@ def complete():
         c.close()
 
         # 完了おめでとう画面へリダイレクトする。
-        # この時、ユーザー名とコース名も一緒に持たせたいのだが、どうすれば？
+        # この時、ユーザー名とコース名も一緒に持たせている。
+        return render_template("complete.html",user_info=user_info,user_course=user_course)
+    # ログインしていない場合：ゲストさん表示
+    else:
+        # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
+        course = request.form.get("name")
+        print("================")
+        print(course)
+
+        # DBに接続
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+        # リダイレクトするコースの名前を取る。（どのhtmlファイルに行く？）
+        # DBのcourseステーブルから取得。
+        c.execute("select course_name from course where id=?", (course,))
+        user_course = c.fetchone()[0]
+        print(user_course)
+
+        conn.commit()
+        c.close()
+
+        # ユーザー名はゲストさん
+        user_info = "ゲスト"
+
         return render_template("complete.html",user_info=user_info,user_course=user_course)
 
-    else:
-        # ここは以下のように修正予定
-        # もしセッションがない場合、「ゲストさん、おめでとう！」と表示させる。
-        return redirect("/login")
 
 
 

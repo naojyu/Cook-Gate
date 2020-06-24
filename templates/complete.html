@@ -13,14 +13,13 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 
     <title>おめでとう！|Cook-Gate</title>
 </head>
 <body>
 
     <header>
-        
 
     </header>
 
@@ -32,23 +31,26 @@
                 {% block content %}
                 <div>
                     <p>
-                        おめでとう、{{user_info[0]}} さん！！<br>
-                        『{{user_course[0]}}』を作れました！<br>
+                        おめでとう、{{user_info}} さん！！<br>
+                        『{{user_course}}』を作れました！<br>
                     </p>
                 </div>
                 {% endblock %}
 
             <h3>コースを修了しました</h3>
         </div>
-        
-
 
         <div class="container">
-            <img src="img/mainvisual.jpg,quality=70,type=jpg" alt="" class="responsive-img">
+            <div class="row">
+                <div class="col s12 m12">
+                    <img src="../static/img/complete.png" alt="" class="responsive-img" style="display: block; margin: 0 auto;">
+
+                </div>
+            </div>
 
             <div class="row amber">
-                <div class="col s12 center">完成したお料理を写真に残しておきましょう</div>
-                <div class="col s12 center">SNSシェア<br>
+                <div class="col s12 m12 center">完成したお料理を写真に残しておきましょう</div>
+                <div class="col s12 m12 center">SNSシェア<br>
                     <a href="https://twitter.com/intent/tweet?button_hashtag=CookGate&ref_src=twsrc%5Etfw" 
                     class="twitter-hashtag-button" 
                     data-show-count="false"
