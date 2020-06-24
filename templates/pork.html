@@ -29,16 +29,7 @@
                     <li><a href="/index#howtosite">このサイトの使い方</a></li>
                     <li><a href="#">準備とお料理コース</a></li>
                     <li><a href="#">できました写真</a></li>
-
-                    <!-- 非ログイン -->
-                    {% if user_id == 0 %}
-                    <li>ゲストさん</li>
-                    <!-- ログイン -->
-                    {% else %}
-                    <li>{{user_info}}さん</li>
                     <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
-                    {% endif %}
-
                 </ul>
             </div>
         </nav>
@@ -52,7 +43,7 @@
                     最初のお料理<br></span>
             </h3>
             <h2>
-                豚の生姜焼き<br>コンビニキャベツ添え
+                豚のしょうが焼き<br>コンビニキャベツ添え
             </h2>
         </div>
 
@@ -62,53 +53,25 @@
             </div>
 
             <div class="col s12 m6 text-align">
-                豚のしょうが焼きは基本の調味料でできます。<br>
-                下のチェックで道具をお手持ちの時はそのままチェックして先に進みます。
+                豚のしょうが焼きは4つの調味料 各大さじ1づつでできます。<br>
+                下のチェックで道具を確かめます。
             </div>
         </div>
 
-        <div class="section center amber-text text-darken-3">
-            <h3>お肉が長いときのために、キッチンバサミを用意します。</h3>
-        </div>
+      
+      
 
-        <div class="row section">
-            <div class="col s12 m6">
-                <img class="responsive-img" src="../static/img/pork/P2hasami .jpg" alt="">
-            </div>
 
-            <div class="col s12 m6 text-align">
-                キッチンばさみは110円ショップで買えます。
-            </div>
-        </div>
 
-        <!-- できましたのチェックボタン -->
-
-        <form action="#" class="center">
-            <p>
-                <label>
-                    <input type="checkbox" />
-                    <span>できました</span>
-                </label>
-            </p>
-        </form>
-
-        <!-- チェックボタン。豚しょうが=1 -->
-        <p>※レベルアップボタン（レベル値取れるけど毎回リロードしちゃう）</p>
-        <form action="/level" method="POST">
-          <input type="hidden" name="name" value="1">
-          <input type="submit" name="check" value="できました" /><br>
-        </form>
-  
 
 
         <div class="section center amber-text text-darken-3">
-            <h3>キッチンの熱源を確かめます。</h3>
+            <h3>熱源</h3>
         </div>
 
         <div class="row">
             <div class="col s12 m12">
-                キッチンの熱源がIHの場合、ガス専用のフライパンや鍋が使えません。<br>
-                IH・ガス共用のフライパンや鍋はどちらでも使えます。この点に注意してフライパン購入を。
+                フライパン購入前に確認 （ガス専用フライパンはIHには使えません）        
             </div>
         </div>
 
@@ -126,7 +89,7 @@
         </div>
 
         <div class="section center amber-text text-darken-3">
-            <h3>フライパン直径24ｃｍを用意します。</h3>
+            <h3>調理器具</h3>
         </div>
 
         <div class="row">
@@ -135,45 +98,63 @@
             </div>
 
             <div class="col s12 m7">
-                キッチンの熱源に、使用可能なフライパンを購入します。
-                大きさは直径24cmで一通りのお料理ができます。<br>
-                大きいと、食材の乗っていない部分が焦げやすく、小さいとあふれます。
-                テフロン加工、ダイヤモンドコーティング、フッ素加工、といったコーティング剤で覆った、焦げ付きにくいタイプがおすすめです。
+                直径24cmのフライパン（テフロン加工等）
             </div>
         </div>
 
         <div class="section center amber-text text-darken-3">
-            <h3>お皿とキッチンペーパー、箸と菜箸、計量スプーン、スポンジと洗剤を用意します。</h3>
+            <h3>調理器具・小物</h3>
         </div>
 
-        <div class="row">
-            <div class="col s12 m12">
-                洗わなくてもいい紙皿、お皿にラップを張ってお料理を盛るなど、食器洗いの負担をへらします。ふきんもキッチンペーパーで代用、汚れはすぐにふき取ってごみ箱へ。食事の箸は油はねでやけどするので菜箸も用意します。計量スプーンはスーパーにも百円ショップにもあります。フライパンやハサミなどを洗うためのスポンジと洗剤を用意します。
+        <div class="row section">
+            <div class="col s12 m6">
+                <img class="responsive-img" src="../static/img/pork/P2hasami .jpg" alt="">
+            </div>
+
+            <div class="col s12 m6 text-align">
+                キッチンばさみ、お皿、キッチンペーパー、箸、菜箸、計量スプーン、スポンジ、洗剤
             </div>
         </div>
 
         <div class="row">
             <div class="col s12 m4">
                 <img src="../static/img/pork/P6paperplate.jpg" alt="" class="responsive-img">
-                <p>紙皿も、キッチンペーパーも捨てるだけ。お箸のほかに菜箸も忘れずに。</p>
+                <p>紙皿22cm</p>
             </div>
 
             <div class="col s12 m4">
                 <img src="../static/img/pork/P7measurringspoon.jpg" alt="" class="responsive-img">
-                <p>計量スプーンは大さじ・小さじがセットになっています。大さじ・小さじ・1/2小さじがセットのものでもいいです。</p>
+                <p>大さじ・小さじ・1/2小さじのセット</p>
             </div>
 
             <div class="col s12 m4">
                 <img src="../static/img/pork/P8sponge.jpg" alt="" class="responsive-img">
-                <p>スポンジと洗剤も用意。</p>
+                <p>スポンジと洗剤。</p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col s12 m12">
+                洗わなくてもいい紙皿、お皿にラップを張ってお料理を盛るなど、食器洗いの負担をへらします。ふきんもキッチンペーパーで代用、汚れはすぐにふき取ってごみ箱へ捨てます。食事の箸は油はねでやけどするので菜箸も用意します。計量スプーンはスーパーにも100円ショップにもあります。フライパンやハサミなどを洗うためのスポンジと洗剤を用意します。
+            </div>
+        </div>
+
+          <!-- できましたのチェックボタン -->
+
+        <form action="#" class="center">
+            <p>
+                <label>
+                    <input type="checkbox" />
+                    <span>できました</span>
+                </label>
+            </p>
+        </form>
+
 
 
 
         <div class="section center amber-text text-darken-3">
-            <h3>醤油(200ml以上）・砂糖と密閉容器、　食用油(キャノーラ油で良い）・しょうがチューブ
-                酒（日本酒、ワンカップか300ml紙パック）</h3>
+            <h3>調味料</h3>
         </div>
 
         <div class="row">
@@ -190,7 +171,7 @@
             <div class="col s12 m7">
                 醤油<br><br>
 
-                丸大豆醤油か濃口醤油500ml（200円程度）を買いましょう。長く保存していると、味が変わります。このくらいの小さめのボトルを試しに買ってみましょう。
+                丸大豆醤油か濃口醤油500ml（200円程度）
             </div>
         </div>
 
@@ -202,7 +183,7 @@
             <div class="col s12 m7">
                 砂糖<br><br>
 
-                砂糖は1Kg入り（250円程度）が一般的ですが、使い切る予定がなければ少ない量のほうがいいでしょう。500ｇ以下入りの袋​はスーパーマーケットのほか100円ショップ、コンビニにあります。こぼすとべたべたするので、保存容器に保存。ジップロックコンテナスクリューか、100円ショップでも似たものを購入します。
+                1ｋｇ（250円程度）ジップロックコンテナスクリュー等
             </div>
         </div>
 
@@ -214,7 +195,7 @@
             <div class="col s12 m7">
                 サラダ油<br><br>
 
-                サラダ油、と表記があるものより、キャノーラ油と表記してあるもののほうが多く流通しています。キャノーラ油はサラダ油の一種です。500mlくらいの大きさで300円前後（1000mlもほぼ同額）で買えます。スーパーかコンビニで買います。
+                サラダ油かキャノーラ油（1000ml　300円程度）
             </div>
         </div>
 
@@ -226,7 +207,7 @@
             <div class="col s12 m7">
                 チューブしょうが<br><br>
 
-                すりおろしたしょうがのチューブ入り（40ｇ）を購入しましょう。100円前後で購入できます。スーパー、コンビニ、100円ショップで。
+                チューブ（40ｇ）100円前後
             </div>
         </div>
 
@@ -238,7 +219,7 @@
             <div class="col s12 m7">
                 酒（日本酒）<br><br>
 
-                180mlのカップ入りか紙パック入りの日本酒を買います。
+                180ml前後の量 200円程度
             </div>
         </div>
 
@@ -246,7 +227,7 @@
 
 
         <div class="section center amber-text text-darken-3">
-            <h3>豚肉薄切り200ｇと千切りキャベツパックを買います。</h3>
+            <h3>食材</h3>
         </div>
 
         <div class="row">
@@ -255,23 +236,22 @@
             </div>
 
             <div class="col s12 m7">
-                豚肉薄切り（またたは豚肉こま切れ）<br>
+                豚肉薄切り（または豚肉こま切れ）<br>
                 <br>
-                豚肉は薄切り200ｇなら300円程度、こま切れなら200ｇ250円程度、スーパーマーケットで買えます。<br>
-                コンビニで生鮮パックや冷凍で買う場合は少し金額が上がります。<br>
-                薄切り肉はキッチンバサミで三等分にカット、こま切れ肉はそのまま焼きます。<br>
+                豚肉は薄切り200ｇで300円程度、こま切れなら200ｇ250円程度<br>
+                （コンビニで生鮮パックや冷凍で買う場合は少し金額が上がります）<br>
                 <br>
-                千切りキャベツパック<br><br>
-                スーパーでもコンビニでも100円前後で購入できます。
+                千切りキャベツパックとマヨネーズ（好みで）<br><br>
+                100円前後
             </div>
         </div>
 
         <div class="section center amber-text text-darken-3">
-            <h3>調味料を合わせて、豚肉を焼きます</h3>
+            <h3>下ごしらえ・調理</h3>
         </div>
 
         <div class="section center ">
-            <h4>合わせ調味料を合わせてお肉を漬けます</h4>
+            <h4>合わせ調味料を合わせて15分お肉を漬けます</h4>
         </div>
 
 
@@ -289,9 +269,9 @@
                 </ul>
 
                 <ul>
-                    <li>お皿やボウルの中で合わせ調味料をすべて混ぜる。</li>
-                    <li>混ぜた合わせ調味料にお肉をつける。</li>
-                    <li>お肉の全体に合わせ調味料いきわたるように入れ物の中でお肉を上下にかえしたり、くっついているお肉同士をはがして混ぜます。</li>
+                    <li>お皿やボウル、コップの中で合わせ調味料をすべて混ぜる。</li>
+                    <li>お皿の中で、お肉に混ぜた合わせ調味料をつける。</li>
+                    <li>お肉の全体に合わせ調味料いきわたるように入れ物の中でお肉を上下にかえしたり、くっついているお肉同士をはがして混ぜる。</li>
                     <li>15分くらいつけておきます。</li>
                 </ul>
 
@@ -299,7 +279,7 @@
         </div>
 
         <div class="section center ">
-            <h4>フライパンを中火にかけてお肉を焼きます</h4>
+            <h4>フライパンを中火にかけてお肉を焼く</h4>
         </div>
 
 
@@ -315,13 +295,13 @@
                 </ul>
 
                 <ul>
-                    <li>キッチンペーパーを5枚重ねでたたみ、少量の水で濡らし拭き掃除用に置く。</li>
-                    <li>フライパンにサラダ油大さじ1入れを中火にかける。ガスは写真を参考に中火に、ＩＨは１８０℃に設定。</li>
-                    <li>フライパンが温まったら（火をつけて1分程度）お肉を投入し、お肉を焼きます。すこし油や汁が飛びますので、覚悟してください。
+                    <li>キッチンペーパー濡らし拭き掃除用に置く。</li>
+                    <li>フライパンにサラダ油大さじ1入れを中火にかける。（ガスは写真を参考に中火に、ＩＨは１８０℃に設定。）</li>
+                    <li>フライパンが温まったら（火をつけて1分程度）お肉を投入し、お肉を焼く。
                     </li>
                     <li>全体に焼き色がついたら火をとめる。（写真を参照）
                     </li>
-                    <li>暖かいうちに飛び跳ねた汁等を拭く。</li>
+                    <li>暖かいうちに飛び跳ねた油や汁等を拭く。</li>
                 </ul>
 
 
@@ -329,9 +309,7 @@
         </div>
 
 
-        <div class="section center amber-text text-darken-3">
-            <h3>お皿にキャベツパックを盛り付けて、生姜焼きも盛り付ける。</h3>
-        </div>
+        
 
         <div class="row">
             <div class="col s12 m5">
@@ -339,23 +317,19 @@
             </div>
 
             <div class="col s12 m7">
-                お皿<br>
-                千切りキャベツパック：好きなだけ<br>
-                マヨネーズ（好みのドレッシング）：分量外<br>
-                <br>
-                お皿に千切りキャベツを盛り付け、焼きあがったお肉を寄り添わせるように盛る。キャベツにマヨネーズを添えて、完成です！
+                お皿に千切りキャベツを盛り付け、焼きあがったお肉を寄り添わせるように盛る。キャベツにマヨネーズ（分量外）を添えて、完成です！
             </div>
         </div>
 
-        <img src="../static/img/mainvisual.jpg,quality=70,type=jpg" alt="" class="responsive-img">
+    
 
         <!-- python連携。作れたボタンを押すと、Complete.htmlへ画面遷移します -->
         <form action="/complete" method="POST" class="center">
             <label>
                 <!-- python連携。作れたボタンを押すと、DBのcourse_statusに反映されます -->
-                <!-- name=name固定、valueはコースに合わせて値を変える。豚しょうが=1 -->
+                <!-- name=name固定、valueはコースに合わせて値を変える -->
                 <input type="hidden" name="name" value="1">
-                <input type="submit" value="豚のしょうが焼きを作れた！！" / class="btn-large amber darken-2">
+                <input type="submit" value="豚肉生姜焼きを作れた！！" / class="btn-large amber darken-2">
             </label>
         </form>
 
@@ -387,7 +361,6 @@
             </div>
         </div>
     </footer>
-
 
 
 </body>
