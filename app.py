@@ -1,7 +1,9 @@
+# os
+import os
 # DB
 import sqlite3
 # フレームワークはflask
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, send_from_directory
 # 日時取ります
 from datetime import datetime
 
@@ -62,7 +64,8 @@ def regist_post():
     # DB接続
     conn = sqlite3.connect("service_cg.db")
     c = conn.cursor()
-    c.execute("insert into user values(null,?,?,?,?)", (name,password,email,reg_dt,))
+    # 完了コース数 default:0
+    c.execute("insert into user values(null,?,?,?,?,?)", (name,password,email,reg_dt,"0"))
     conn.commit()
     c.close()
 
@@ -107,8 +110,10 @@ def login_post():
     print(user_id)
     c.close()
 
+    # 未登録の場合、ログインページを表示し続ける
     if user_id is None:
-        return render_template("/login")
+        return redirect("/login")
+    # 登録ありの場合、セッションを作りログイントップへ（index.html）
     else:
         # セッションを作る
         session["user_id"] = user_id
@@ -130,30 +135,42 @@ def dbtest():
         # DB接続
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
-        # ユーザー情報を取得し表示
-        c.execute("select name from user where id = ?", (user_id,))
-        user_info = c.fetchone()[0]
-        print("-------------------------")
-        print(user_info)
-        
-        # コース完了状況の取得
-        c.execute("select SUM(status) from course_status where user_id =? AND status > '0' GROUP BY course", (user_id,))
-        # 完了しているコースの数を取得
-        user_status = len(c.fetchall())
-        print(user_status)
 
-        # コースの数
-        course_num = 2
-
-        # コース完了率を算出（％、整数になるよう四捨五入）
-        # 全「2」コースとしてある。（豚肉と味噌汁）
+        # ログインユーザー名とコース完了率を取得
+        c.execute("select name,comp_course from user where id = ?", (user_id,))
+        info = c.fetchone()
+        user_info = info[0]
+        user_status = info[1]
+        if user_status is None:
+            user_status = 0
+        print("user_info",user_info)
+        print("user_status",user_status)
+        # 全コース数を取得
+        c.execute("select COUNT(id) from course where id >0")
+        course_num = c.fetchone()[0]
+        # コース完了率の算出（％、整数になるよう四捨五入）
         user_rate = round((user_status / course_num) * 100)
-        print("========================")
         print(user_rate)
+
+        # レベル合計
+        c.execute("select SUM(level) from course_level where user_id=?", (user_id,))
+        level_sum = c.fetchone()[0]
+        if level_sum is None:
+            level_sum = 0
+        print(level_sum)
+        # レベル上限の合計を取得
+        c.execute("SELECT SUM(maxlevel) FROM course")
+        level_max = c.fetchone()[0]
+        print(level_max)
+
+        # user's photo-album
+        c.execute("SELECT img_pass,course_name FROM photos WHERE user_id=?",(user_id,))
+        photo_list = c.fetchall()
+        print("photos:",photo_list)
 
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id)
 
     # ログインしていない場合：ゲストさん表示
     else:
@@ -161,10 +178,13 @@ def dbtest():
         user_status = "-"
         user_rate = "-"
         course_num = "-"
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num)
+        # ゲスト/ユーザーで表記分け用コード（消さないで！！）
+        user_id = 0
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
 
 
-# 各コースの画面
+# 各コースのボタンをクリックした時、各コースの画面へ遷移する。
+# DBのstatusテーブルとlevelテーブルに情報書き込む。
 @app.route("/course", methods=["POST"])
 def select_course():
     # ユーザーがログインしている場合
@@ -185,8 +205,24 @@ def select_course():
         # DBに接続
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
-        # DBに開始情報を書き込む（新規登録）すでにあっても、ボタンを押すたびに登録される。
-        c.execute("insert into course_status values(null,?,?,?)", (user_id,course,status,))
+
+        # 完了状況
+        # DBのstatusテーブルに、既に登録があるか調べる
+        c.execute("select id from course_status where user_id=? and course=? and status=?", (user_id,course,"0"))
+        status = len(c.fetchall())
+        # もし無ければ、DBのstatusテーブルに開始情報を書き込む（新規登録）
+        if status == 0:
+            # DBのstatusテーブルに開始情報を書き込む（新規登録）すでに登録があっても、ボタンを押すたびに登録される。
+            c.execute("insert into course_status values(null,?,?,?)", (user_id,course,status,))
+
+        # レベル状況
+        # DBのlevelテーブルに、既に登録があるか調べる
+        c.execute("select id from course_level where user_id=? and course_id=?", (user_id,course))
+        level = len(c.fetchall())
+        # もし無ければ、DBのlevelテーブルに開始情報を書き込む（新規登録）
+        if level == 0:
+            c.execute("insert into course_level values(null,?,?,?)", (user_id,course,status,))
+
         # リダイレクトするコースのルーティングをDBのcourseテーブルから取得（どのhtmlファイルに行く？）
         c.execute("select page from course where id=?", (course,))
         page = c.fetchone()[0]
@@ -194,12 +230,11 @@ def select_course():
 
         conn.commit()
         c.close()
+
         # 取得したページへリダイレクト
         return redirect(page)
     else:
         # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
-        # 豚肉：1
-        # 味噌汁：2
         course = request.form.get("name")
         print("==========================")
         print(course)
@@ -215,58 +250,143 @@ def select_course():
 
         conn.commit()
         c.close()
+
+        user_info = "ゲスト"
+
         # 取得したページへリダイレクト
         return redirect(page)
 
 
 
 # それぞれのコースの画面へリダイレクトする。
-# （もしユーザー名/ゲストさん表示、完了率を表示させるなら、セッションを追加できます）
 # pork（豚肉生姜焼き）の画面を表示する
 @app.route("/pork")
 def pork():
-    return render_template("pork.html")
+    # ユーザーがログインしている場合
+    if "user_id" in session:
+        # セッションからユーザーID取得
+        user_id = session["user_id"][0]
+        print("--------------------------")
+        print(user_id)
+
+        # DB開く
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+
+        # ログインユーザー名とコース完了率を取得
+        c.execute("select name,comp_course from user where id = ?", (user_id,))
+        info = c.fetchone()
+        user_info = info[0]
+        user_status = info[1]
+        if user_status is None:
+            user_status = 0
+        print("user_info",user_info)
+        print("user_status",user_status)
+        # 全コース数を取得
+        c.execute("select COUNT(id) from course where id >0")
+        course_num = c.fetchone()[0]
+        # コース完了率の算出（％、整数になるよう四捨五入）
+        user_rate = round((user_status / course_num) * 100)
+        print("user_rate",user_rate)
+
+        conn.commit()
+        c.close()
+
+        return render_template("pork.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
+
+    else:
+        user_info = "ゲスト"
+        return render_template("pork.html", user_info=user_info)
+
 
 # soup（味噌汁）の画面を表示する
 @app.route("/soup")
 def soup():
-    return render_template("soup.html")
+    # ユーザーがログインしている場合
+    if "user_id" in session:
+        # セッションからユーザーID取得
+        user_id = session["user_id"][0]
+        print("--------------------------")
+        print(user_id)
+
+        # DB開く
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+
+        # ログインユーザー名とコース完了率を取得
+        c.execute("select name,comp_course from user where id = ?", (user_id,))
+        info = c.fetchone()
+        user_info = info[0]
+        user_status = info[1]
+        if user_status is None:
+            user_status = 0
+        print("user_info",user_info)
+        print("user_status",user_status)
+        # 全コース数を取得
+        c.execute("select COUNT(id) from course where id >0")
+        course_num = c.fetchone()[0]
+        # コース完了率の算出（％、整数になるよう四捨五入）
+        user_rate = round((user_status / course_num) * 100)
+        print("user_rate",user_rate)
+
+        conn.commit()
+        c.close()
+
+        return render_template("soup.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
+
+    else:
+        user_info = "ゲスト"
+        return render_template("soup.html", user_info=user_info)
+
+
 
 
 
 # # 完了おめでとう処理
-# 「pork」コースの完了ボタン（/complete）を押した時、
+# If user access 完了おめでとう-view directory, redirect to index.html
+@app.route("/complete", methods=["GET"])
+def complete_get():
+    return redirect("/index")
+
+# If user access course(pork, soup), display 完了おめでとう-view
+# 完了おめでとう処理
 @app.route("/complete", methods=["POST"])
-def complete():
+def complete_post():
     # ログインしている場合
     if "user_id" in session:
         # セッションからユーザーIDを取得する。
         user_id = session["user_id"][0]
         print("--------------------------")
-        print(user_id)
-
+        print("user_id",user_id)
         # 完了ボタンクリックの日時取得
         comp_dt = datetime.now().strftime("%F %T")
-        print("------------------------------------------")
-        print(comp_dt)
-
+        print("comp_dt",comp_dt)
         # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
         course = request.form.get("name")
-        print("================")
-        print(course)
+        print("course:",course)
 
+        # DB開く
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
-        # DBに完了日時を書き込む（default:0 → 日時にする）
-        c.execute("update course_status set status=? where user_id =? and course=? and status=?", (comp_dt,user_id,course,"0"))
+        # コース完了状況
+        c.execute("SELECT status FROM course_status WHERE user_id =? and course=?", (user_id,course,))
+        user_status = len(c.fetchall())
+        print("user_status",user_status)
+        # コース完了日時を書き込む
+        c.execute("UPDATE course_status SET status=? WHERE user_id =? and course=? and status=?", (comp_dt,user_id,course,"0"))
 
-        # ユーザー情報を取得し表示
-        c.execute("select name from user where id = ?", (user_id,))
+        # もしこれが1回目の完了ならば、
+        if user_status == 1:
+            # ユーザーテーブルに完了率を書き込む。
+            c.execute("UPDATE user SET comp_course= comp_course+1 WHERE id=?", (user_id,))
+        
+        # ユーザー名を取得
+        c.execute("SELECT name FROM user WHERE id = ?", (user_id,))
         user_info = c.fetchone()[0]
         print("-------------------------")
         print(user_info)
 
-        # コース名を取得するSQL文をここに書く。
+        # コース名を取得
         c.execute("select course_name from course where id = ?", (course,))
         user_course = c.fetchone()[0]
         print("-------------------------")
@@ -277,7 +397,8 @@ def complete():
 
         # 完了おめでとう画面へリダイレクトする。
         # この時、ユーザー名とコース名も一緒に持たせている。
-        return render_template("complete.html",user_info=user_info,user_course=user_course)
+        return render_template("complete.html",user_info=user_info,user_course=user_course, course=course,user_id=user_id)
+
     # ログインしていない場合：ゲストさん表示
     else:
         # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
@@ -288,19 +409,144 @@ def complete():
         # DBに接続
         conn = sqlite3.connect("service_cg.db")
         c = conn.cursor()
+
         # リダイレクトするコースの名前を取る。（どのhtmlファイルに行く？）
         # DBのcourseステーブルから取得。
         c.execute("select course_name from course where id=?", (course,))
         user_course = c.fetchone()[0]
         print(user_course)
-
         conn.commit()
         c.close()
 
         # ユーザー名はゲストさん
         user_info = "ゲスト"
 
-        return render_template("complete.html",user_info=user_info,user_course=user_course)
+        user_id = 0
+
+        return render_template("complete.html",user_info=user_info,user_course=user_course,user_id=user_id)
+
+
+
+# レベルアップ表示
+# 未完成。動作はするけどあまり良くない。
+@app.route("/level", methods=["POST"])
+def check():
+    # ログインユーザーの場合
+    if "user_id" in session:
+        # セッションからユーザーIDを取得する。
+        user_id = session["user_id"][0]
+        print("--------------------------")
+        print(user_id)
+
+        # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
+        course = request.form.get("name")
+        print(course)
+
+        # レベルチェックボタンの情報を取得
+        name = request.form.get("check")
+        print(name)
+
+        # DB開く
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+
+        # レベル上限と登録レベルを比較（引き算）
+        c.execute("select (maxlevel-level) from course_level INNER JOIN course ON course.id=course_level.course_id where user_id=? AND course_id=? ", (user_id,course,))
+        level_now = c.fetchone()[0]
+        print(level_now)
+
+        if level_now > 0:
+            # DBにレベルを書き込む
+            c.execute("update course_level set level = level + 1 where user_id=? and course_id=?", (user_id,course,))
+        # リダイレクトするコースのルーティングを取る。（どのhtmlファイルに行く？）
+        # DBのcourseステーブルから取得。
+        c.execute("select page from course where id=?", (course,))
+        page = c.fetchone()[0]
+        print(page)
+
+        conn.commit()
+        c.close()
+        # 取得したページへリダイレクト
+        return redirect(page)
+    else:
+        # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
+        course = request.form.get("name")
+        print(course)
+
+        # DB開く
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+        # リダイレクトするコースのルーティングを取る。（どのhtmlファイルに行く？）
+        # DBのcourseステーブルから取得。
+        c.execute("select page from course where id=?", (course,))
+        page = c.fetchone()[0]
+        print(page)
+        conn.commit()
+        c.close()
+        # 取得したページへリダイレクト
+        return redirect(page)
+
+
+
+# 写真アップロード
+@app.route('/uploads/<filename>')
+# ファイルを表示する
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+@app.route("/upload",methods=["POST"])
+def do_upload():
+    if "user_id" in session:
+        # セッションからユーザーIDを取得する。
+        user_id = session["user_id"][0]
+        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        print(user_id)
+
+        # course番号を取得(コース番号は、DBのcourseテーブルを見てね)
+        course = request.form.get("name")
+        print("==========================")
+        print(course)
+
+        # upload photo
+        upload = request.files["upload"]
+        if not upload.filename.lower().endswith((".png", ".jpg", ".jpeg")):
+            return "Select only .png, .jpg, .jpeg files."
+        
+        # For other def
+        save_path = get_save_path()
+        print(save_path)
+
+        # name filename
+        # want to try to change name itself due to confrict filenames
+        filename = upload.filename
+        upload.save(os.path.join(save_path,filename))
+        print(filename)
+
+        conn = sqlite3.connect("service_cg.db")
+        c = conn.cursor()
+        # コース番号からコース名を取得
+        c.execute("select course_name from course where id=?", (course,))
+        course_name = c.fetchone()[0]
+        print(course_name)
+        c.execute("insert into photos values(null,?,?,?)", (user_id,course_name,filename))
+        conn.commit()
+        c.close()
+
+        return redirect("/index")
+    else:
+        return "Guest: reading only."
+
+
+def get_save_path():
+    path_dir = "./static/user_img"
+    return path_dir
+
+
+
+
+
+
 
 
 
@@ -309,18 +555,14 @@ def complete():
 
 
 # 未実装
-# レベルアップ
-# 写真アップロード
 # 3コース目以降の動作追加
+# ユーザー情報の変更
+# 手持ちの器具から逆検索
 
 
 
 
-
-
-
-
-# ログアウト機能
+# ログアウト機能（セッション削除）
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)
