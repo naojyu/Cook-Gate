@@ -11,13 +11,13 @@
         <form action="/login" method="POST">
                 お名前：<input type="text" name="name"><br>
                 パスワード：<input type="password" name="password"><br>
-                メールアドレス：<input type="text" name="email"><br>
                 <input type="submit" name="save" value="ログインする">
         </form>
         <br>
 
         <!-- 既に登録済みの方向けリンク -->
-        <h4><a href="/regist">まだユーザー登録がお済みでない方はこちら</a></h4>
+        <p><a href="/regist">ユーザー登録する（無料で全ての機能を使えます）</a></p>
+        <p><a href="/index">ログインせずに使う（一部機能制限あり）</a></p>
 </div>
 
 {% endblock %}
