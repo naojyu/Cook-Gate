@@ -407,28 +407,30 @@
                 {% else %}
                 {% endif %}
 
-                <table border="1">
-                  <tr>
-                    <td>お料理コース名</td>
-                    <td>完了日時</td><br>
-                  </tr>
-                  {% for item in user_list %}
+                {% if user_status == "-" %}
+                {% elif user_status >= 0 %}
+                    <table border="1">
                     <tr>
-                      <td>{{item[0]}}</td>
-                      <td>{{item[1]}}</td>
+                        <td>お料理コース名</td>
+                        <td>完了日時</td><br>
                     </tr>
-                  {% endfor %}
-                </table>
+                    {% for item in user_list %}
+                        <tr>
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+
             </div>
 
             <div>
-                <p>=== 出来ました！写真 ===</p>
-                {% for item in photo_list %}
                 <!-- 画像ファイル表示 -->
+                {% for item in photo_list %}
                 <p>{{item[1]}}<br>
                   <img src="/static/user_img/{{item[0]}}" height="150px" alt="test"></p>
                 {% endfor %}
-                -----------------------------------------------<br>
             </div>
 
 
