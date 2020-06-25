@@ -6,6 +6,10 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, session, send_from_directory
 # 日時取ります
 from datetime import datetime
+# ファイル名チェック用(片方で良い気もするが検証が間に合わないので両方残し！)
+import werkzeug
+from werkzeug.utils import secure_filename
+
 
 # CSSフレームワークをつかいます
 from flask_material import Material
@@ -20,18 +24,21 @@ Material(app)
 app.secret_key = "cook-gate"
 
 
+# ～～～～～～～～～～～～～～～～～～～～
 # /以下に何も入力されていない場合、トップ画面へ自動遷移する
 @app.route("/")
 def go_index():
+    return redirect("/index")
     return render_template("cookgate.html")
 
 # トップ画面
 @app.route("/cookgate")
 def cg_top():
+    return redirect("/index")
     return render_template("cookgate.html")
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # 会員登録
 # 会員登録画面を表示する
 @app.route("/regist", methods=["GET"])
@@ -72,7 +79,7 @@ def regist_post():
     return redirect("/login")
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # ログイン
 # ログイン画面を表示する
 @app.route("/login", methods=["GET"])
@@ -120,7 +127,7 @@ def login_post():
         return redirect("/index")
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # ログイントップ画面
 # index.htmlに会員情報を表示させています。
 @app.route("/index")
@@ -148,6 +155,15 @@ def dbtest():
         # 全コース数を取得
         c.execute("select COUNT(id) from course where id >0")
         course_num = c.fetchone()[0]
+
+        # お料理ステータス：まだ実装してない。
+        # コース毎の完了状況
+        c.execute("SELECT course_name,status FROM course LEFT OUTER JOIN course_status ON course.id = course_status.course AND user_id=?", (user_id,))
+        user_list = c.fetchall()
+        print("user_list",user_list)
+
+
+
         # コース完了率の算出（％、整数になるよう四捨五入）
         user_rate = round((user_status / course_num) * 100)
         print(user_rate)
@@ -170,7 +186,7 @@ def dbtest():
 
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list)
 
     # ログインしていない場合：ゲストさん表示
     else:
@@ -183,6 +199,7 @@ def dbtest():
         return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
 
 
+# ～～～～～～～～～～～～～～～～～～～～
 # 各コースのボタンをクリックした時、各コースの画面へ遷移する。
 # DBのstatusテーブルとlevelテーブルに情報書き込む。
 @app.route("/course", methods=["POST"])
@@ -257,7 +274,7 @@ def select_course():
         return redirect(page)
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # それぞれのコースの画面へリダイレクトする。
 # pork（豚肉生姜焼き）の画面を表示する
 @app.route("/pork")
@@ -341,7 +358,7 @@ def soup():
 
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # # 完了おめでとう処理
 # If user access 完了おめでとう-view directory, redirect to index.html
 @app.route("/complete", methods=["GET"])
@@ -426,9 +443,10 @@ def complete_post():
         return render_template("complete.html",user_info=user_info,user_course=user_course,user_id=user_id)
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # レベルアップ表示
-# 未完成。動作はするけどあまり良くない。
+# 動作はするけどリロードするので使い勝手的にはダメ。
+# HTMLにボタン付けてません。なのでこのコード丸ごと消してもOK
 @app.route("/level", methods=["POST"])
 def check():
     # ログインユーザーの場合
@@ -487,6 +505,11 @@ def check():
         return redirect(page)
 
 
+# ～～～～～～～～～～～～～～～～～～～～
+# 写真アップロード
+# ファイルサイズ制限：1MBまで
+app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024
+
 
 # 写真アップロード
 @app.route('/uploads/<filename>')
@@ -508,6 +531,10 @@ def do_upload():
         print("==========================")
         print(course)
 
+        # もし画像選択なくボタンを押した場合、トップページに遷移します。
+        if "upload" not in request.files:
+            return redirect("/index")
+
         # upload photo
         upload = request.files["upload"]
         if not upload.filename.lower().endswith((".png", ".jpg", ".jpeg")):
@@ -517,9 +544,15 @@ def do_upload():
         save_path = get_save_path()
         print(save_path)
 
-        # name filename
-        # want to try to change name itself due to confrict filenames
+        # ファイルのチェック
+        # if upload and allowed_file(upload.filename):
+        filename = secure_filename(upload.filename)
+        print(filename)
+
+        # ファイル名取得＆ファイル名変更
         filename = upload.filename
+        filename = datetime.now().strftime("%y%m%d_%H%M%S_") \
+            + werkzeug.utils.secure_filename(filename)
         upload.save(os.path.join(save_path,filename))
         print(filename)
 
@@ -529,11 +562,13 @@ def do_upload():
         c.execute("select course_name from course where id=?", (course,))
         course_name = c.fetchone()[0]
         print(course_name)
+        # 画像テーブルに書き込む
         c.execute("insert into photos values(null,?,?,?)", (user_id,course_name,filename))
         conn.commit()
         c.close()
 
         return redirect("/index")
+    # ゲストさんがアクセスしたら、トップページへリダイレクト
     else:
         return "Guest: reading only."
 
@@ -542,6 +577,13 @@ def get_save_path():
     path_dir = "./static/user_img"
     return path_dir
 
+
+# 写真のサイズが大きすぎるとき
+# まだうまく実装できてないんだけど一応入れておきます。誰か直してー！！
+@app.errorhandler(werkzeug.exceptions.RequestEntityTooLarge)
+def handle_over_max_file_size(error):
+    print("werkzeug.exceptions.RequestEntityTooLarge")
+    return 'result : file size is overed.'
 
 
 
@@ -562,6 +604,10 @@ def get_save_path():
 
 
 
+
+
+
+# ～～～～～～～～～～～～～～～～～～～～
 # ログアウト機能（セッション削除）
 @app.route("/logout")
 def logout():
@@ -569,7 +615,7 @@ def logout():
     return redirect("/cookgate")
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
 # 403エラー
 @app.errorhandler(403)
 def mistake403(code):
@@ -581,6 +627,7 @@ def notfound404(code):
     return "404だよ！！見つからないよ！！！"
 
 
+# ～～～～～～～～～～～～～～～～～～～～
 # 開発用サーバ設定
 if __name__ == "__main__":
     app.run(debug=True)
