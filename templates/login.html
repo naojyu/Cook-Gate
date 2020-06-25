@@ -29,10 +29,10 @@
 
 <body>
 
-        <!-- 名前とパスワードで会員登録するページを作る -->
+        <!-- ここはログインページだよ -->
+        <div class="center grey lighten-3 section">
+                <form action="/login" method="POST">
 
-        <form action="/login" method="POST">
-                <div class="center grey lighten-3 section">
                         <div class="row container">
                                 <div class="">
                                         <!-- <div class="col s12 m6 btn-flat white-text orange darken-1">
@@ -61,11 +61,13 @@
                                         <input type="submit" name="save" value="ログインする" class="btn orange darken-1">
                                 </div>
                         </div>
-                        <p class="right-align"><a href="/regist"
-                                        class="teal-text lighten-2">ユーザー登録する（無料で全ての機能を使えます）</a></p>
-                        <p class="right-align"><a href="/index" class="teal-text lighten-2">ログインせずに使う（一部機能制限あり）</a></p>
-                </div>
-        </form>
+
+                </form>
+                <p class="right-align"><a href="/regist" class="teal-text lighten-2">ユーザー登録する（無料で全ての機能を使えます）</a>
+                </p>
+                <p class="right-align"><a href="/index" class="teal-text lighten-2">ログインせずに使う（一部機能制限あり）</a></p>
+        </div>
+
 
         <!-- ルーティングは /login メソッドはPOST（人に見られたくない情報！！）にする。 -->
         <!-- <form action="/login" method="POST">
