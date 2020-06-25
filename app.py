@@ -148,6 +148,15 @@ def dbtest():
         # 全コース数を取得
         c.execute("select COUNT(id) from course where id >0")
         course_num = c.fetchone()[0]
+
+        # お料理ステータス：まだ実装してない。
+        # コース毎の完了状況
+        c.execute("SELECT course_name,status FROM course LEFT OUTER JOIN course_status ON course.id = course_status.course AND user_id=? WHERE status IS NOT NULL", (user_id,))
+        user_list = c.fetchall()
+        print("user_list",user_list)
+
+
+
         # コース完了率の算出（％、整数になるよう四捨五入）
         user_rate = round((user_status / course_num) * 100)
         print(user_rate)
@@ -170,7 +179,7 @@ def dbtest():
 
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list)
 
     # ログインしていない場合：ゲストさん表示
     else:
