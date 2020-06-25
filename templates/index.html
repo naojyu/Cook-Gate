@@ -29,7 +29,7 @@
 
     <header>
 
-        <nav class="nav-extended amber darken-2">
+        <nav class="nav-extended orange darken-1">
             <div class="nav-wrapper">
                 <a href="/index" class="brand-logo" style="font-family: 'Comic Sans MS';">cookgate</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -81,7 +81,7 @@
     </header>
 
     <main>
-        <img class="responsive-img" src="../static/img/coocgate.png" style="margin: 0 auto;  width: 100%;">
+        <img class="responsive-img" src="../static/img/toppage/T1 curry.png" style="margin: 0 auto;  width: 100%;">
 
         <div class="">
             <div class="row section">
@@ -103,13 +103,13 @@
                 {% if user_id >= 1 %}
                 {% else %}
                 <div class="col s12 center">
-                    <a class="waves-effect waves-light btn amber darken-2" href="/regist">新規登録</a>
+                    <a class="waves-effect waves-light btn orange darken-1" href="/regist">新規登録</a>
                 </div>
                 {% endif %}
             </div>
 
 
-            <div class="section center amber darken-2">
+            <div class="section center orange darken-1">
                 <h2 id="howtosite">このサイトの使い方</h2>
             </div>
             <div class="container">
@@ -146,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="section center amber darken-2">
+            <div class="section center orange darken-1">
                 <h2 id="howtosite">お料理コース</h2>
             </div>
             <div class="container">
@@ -154,11 +154,13 @@
                 <!-- =============================================== -->
                 <div class="row">
                     <div class="col s12 m12">
-                        <h3 class="amber center">豚のしょうが焼き</h3>
+                        <h3 class="orange darken-1 center">豚のしょうが焼き</h3>
                     </div>
-
+                 <div class="col s12 m12">
+                        <span class="green ligten-4">包丁なし</span>
                     <div class="col s12 m6">
-                        <img src="../static/img/don.jpg" alt="" class="responsive-img">
+                        
+                        <img src="../static/img/toppage/T2 syougayaki.jpg" alt="" class="responsive-img">
 
                     </div>
                     <div class="col s12 m6">
@@ -177,15 +179,15 @@
                         <form action="/course" method="POST" class="center">
                             <!-- 豚肉生姜焼き：コース「1」 -->
                             <input type="hidden" name="name" value="1">
-                            <input type="submit" name="pork" value="豚のしょうが焼きを作る" class="btn-large btn-flat amber">
+                            <input type="submit" name="pork" value="豚のしょうが焼きを作る" class="btn-large btn-flat orange darken-1">
                         </form>
-
                     </div>
+                </div>
                 </div>
                 <!-- =============================================== -->
                 <div class="row">
                     <div class="col s12 m12">
-                        <h3 class="amber center">乾燥わかめとねぎの味噌汁</h3>
+                        <h3 class="orange darken-1 center">乾燥わかめとねぎの味噌汁</h3>
                     </div>
                     <div class="col s12 m12">
                         <span class="orange ligten-4">10分以内</span>
@@ -193,7 +195,7 @@
                         <span class="yellow ligten-4">ガスコンロなし</span>
 
                         <div class="col s12 m6">
-                            <img src="../static/img/misosoup.jpg" alt="" class="responsive-img">
+                            <img src="../static/img/toppage/T3misosoup.jpg" alt="" class="responsive-img">
 
                         </div>
                         <div class="col s12 m6">
@@ -214,14 +216,14 @@
                                 <!-- わかめ＆ネギのお味噌汁：コース「2」 -->
                                 <input type="hidden" name="name" value="2">
                                 <input type="submit" name="soup" value="乾燥わかめとねぎのお味噌汁を作る"
-                                    class="btn-large btn-flat amber">
+                                    class="btn-large btn-flat orange darken-1">
                             </form>
                         </div>
                     </div>
                     <!-- =============================================== -->
                     <class="row">
                         <div class="col s12 m12">
-                            <h3 class="amber center">好みのお肉とカット野菜のカレーライス</h3>
+                            <h3 class="orange darken-1 center">好みのお肉とカット野菜のカレーライス</h3>
                         </div>
                         <div class="col s12 m12">
 
@@ -230,7 +232,7 @@
                             <!-- <span class="yellow ligten-4">ガスコンロなし</span> -->
 
                             <div class="col s12 m6">
-                                <img src="../static/img/curry.jpg" alt="" class="responsive-img">
+                                <img src="../static/img/toppage/T4curry.jpg" alt="" class="responsive-img">
 
                             </div>
                             <div class="col s12 m6">
@@ -251,14 +253,14 @@
                                     <!-- わかめと長ネギのお味噌汁：コース「2」 -->
                                     <input type="hidden" name="name" value="3">
                                     <input type="submit" name="soup" value="好みのお肉とカット野菜のカレーライスを作る"
-                                        class="btn-large btn-flat amber">
+                                        class="btn-large btn-flat orange darken-1">
                                 </form>
                             </div>
                         </div>
                         <!-- =============================================== -->
                         <div class="row">
                             <div class="col s12 m12">
-                                <h3 class="amber center">レトルト調味料の青椒肉絲</h3>
+                                <h3 class="orange darken-1 center">レトルト調味料の青椒肉絲</h3>
                             </div>
                             <div class="col s12 m12">
 
@@ -267,7 +269,7 @@
                                 <!-- <span class="yellow ligten-4">ガスコンロなし</span> -->
 
                                 <div class="col s12 m6">
-                                    <img src="../static/img/food_chinjao_rosu.png" alt="" class="responsive-img">
+                                    <img src="../static/img/toppage/T5 tinnjyaorosu .jpg" alt="" class="responsive-img">
 
                                 </div>
                                 <div class="col s12 m6">
@@ -289,7 +291,7 @@
                                         <!-- わかめと長ネギのお味噌汁：コース「2」 -->
                                         <input type="hidden" name="name" value="4">
                                         <input type="submit" name="soup" value="レトルト調味料の青椒肉絲を作る"
-                                            class="btn-large btn-flat amber">
+                                            class="btn-large btn-flat orange darken-1">
                                     </form>
                                 </div>
                             </div>
@@ -297,7 +299,7 @@
                         </div>
                 </div>
             </div>
-            <div class="section center amber darken-2">
+            <div class="section center orange darken-1">
                 <h2 id="">応用のきくレシピ</h2>
             </div>
             <div class="container">
@@ -305,11 +307,11 @@
                 <!-- =============================================== -->
                 <div class="row">
                     <div class="col s12 m12">
-                        <h3 class="amber center">牛丼（次の日の肉豆腐）</h3>
+                        <h3 class="orange darken-1 center">牛丼（次の日の肉豆腐）</h3>
                     </div>
 
                     <div class="col s12 m6">
-                        <img src="../static/img/food_gyudon.png" alt="" class="responsive-img">
+                        <img src="../static/img/toppage/T6 gyudon .jpg" alt="" class="responsive-img">
 
                     </div>
                     <div class="col s12 m6">
@@ -329,7 +331,7 @@
                         <form action="/course" method="POST" class="center">
                             <!-- 豚肉生姜焼き：コース「1」 -->
                             <input type="hidden" name="name" value="5">
-                            <input type="submit" name="pork" value="牛丼（次の日の肉豆腐）を作る" class="btn-large btn-flat amber">
+                            <input type="submit" name="pork" value="牛丼（次の日の肉豆腐）を作る" class="btn-large btn-flat orange darken-1">
                         </form>
 
                     </div>
@@ -338,7 +340,7 @@
 
 
 
-            <div class="section center amber darken-2">
+            <div class="section center orange darken-1">
                 <h2>もう困らないコラム</h2>
             </div>
             <div class="row section">
@@ -358,7 +360,7 @@
                             </div>
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
-                                    <a class="waves-effect waves-light btn-large amber darken-2">もう困らないコラム　お米に飛ぶ</a>
+                                    <a class="waves-effect waves-light btn-large orange darken-1">もう困らないコラム　お米に飛ぶ</a>
                                 </span>
                             </div>
                         </div>
@@ -384,7 +386,7 @@
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
                                     <a
-                                        class="waves-effect waves-light btn-large amber darken-2">もう困らないコラム　食材や調味料の処分に飛ぶ</a>
+                                        class="waves-effect waves-light btn-large orange darken-1">もう困らないコラム　食材や調味料の処分に飛ぶ</a>
                                 </span>
                             </div>
                         </div>
@@ -392,7 +394,7 @@
                 </div>
             </div>
 
-            <div class="section center amber darken-2">
+            <div class="section center orange darken-1">
                 <h2 id="#">できました！お料理アルバム</h2>
             </div>
 
@@ -568,7 +570,7 @@
 
     </main>
 
-    <footer class="page-footer amber darken-2">
+    <footer class="page-footer orange darken-1">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
