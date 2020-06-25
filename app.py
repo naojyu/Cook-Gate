@@ -85,13 +85,13 @@ def login_post():
     # ログイン情報を取得
     name = request.form.get("name")
     password = request.form.get("password")
-    email = request.form.get("email")
+    # email = request.form.get("email")
 
     # 確認print
     print("-------------------------------")
     print(name)
     print(password)
-    print(email)
+    # print(email)
 
     # 一つでも空の値がある場合、エラーを返すようにしたい。
     # 名前は2文字以上にしたい
@@ -102,7 +102,7 @@ def login_post():
     conn = sqlite3.connect("service_cg.db")
     c = conn.cursor()
     # ユーザ名、PW、メールアドレスの全てが一致するidを検索
-    c.execute("select id from user where name=? and password=? and email=?", (name,password,email,))
+    c.execute("select id from user where name=? and password=?", (name,password,))
     user_id = c.fetchone()
 
     # 確認print
