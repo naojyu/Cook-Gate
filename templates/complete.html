@@ -30,14 +30,13 @@
                 <!-- python連携。「〇〇さん、おめでとう」って表示してみたよ -->
                 {% block content %}
                 <div>
-                    <p>
+                    <h5>
                         おめでとう、{{user_info}} さん！！<br>
-                        『{{user_course}}』を作れました！<br>
-                    </p>
+                    </h5>
                 </div>
                 {% endblock %}
 
-            <h3>コースを修了しました</h3>
+            <h3>『{{user_course}}』<br>コースを修了しました</h3>
         </div>
 
         <div class="container">
@@ -49,10 +48,10 @@
             </div>
 
             <div class="row orange darken-1">
-                <div class="col s12 m12 center">完成したお料理を写真に残しておきましょう</div>
+                <div class="col s12 m12 center">１．完成したお料理を写真に残しておきましょう</div>
 
                 <div class="col s12 m12 center">SNSシェア<br>
-                    <a href="https://twitter.com/intent/tweet?button_hashtag=CookGate&ref_src=twsrc%5Etfw" 
+                    <a href="https://twitter.com/intent/tweet?button_hashtag=Cookgate&ref_src=twsrc%5Etfw" 
                     class="twitter-hashtag-button" 
                     data-show-count="false"
                     data-text="お料理ができました！">
@@ -65,7 +64,7 @@
                 <!-- 写真アップロードボタン -->
                 {% if user_id > 0 %}
                 <p></p>
-                <p class="center">お料理アルバムにも写真を登録してみましょう</p>
+                <p class="center">２．お料理アルバムに出来上がりの写真を登録してみましょう</p>
     
                 <!-- 画像ファイル登録・更新 -->
                 <div class="center">
@@ -89,7 +88,7 @@
                     </a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div> -->
-                
+
             </div>
         </div>
 
