@@ -608,7 +608,10 @@ def handle_over_max_file_size(error):
 
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
+@app.route("/error")
+def error():
+    return render_template("error.html")
 
 
 # ～～～～～～～～～～～～～～～～～～～～
