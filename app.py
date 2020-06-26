@@ -72,6 +72,7 @@ def regist_post():
     conn = sqlite3.connect("service_cg.db")
     c = conn.cursor()
     # 完了コース数 default:0
+    # メールアドレスは何を入力しても「email」と登録するよう設定してます。
     c.execute("insert into user values(null,?,?,?,?,?)", (name,password,email,reg_dt,"0"))
     conn.commit()
     c.close()
@@ -158,7 +159,7 @@ def dbtest():
 
         # お料理ステータス：まだ実装してない。
         # コース毎の完了状況
-        c.execute("SELECT course_name,status FROM course LEFT OUTER JOIN course_status ON course.id = course_status.course AND user_id=?", (user_id,))
+        c.execute("SELECT course_name,status FROM course LEFT OUTER JOIN course_status ON course.id = course_status.course AND user_id=? ORDER BY course.id", (user_id,))
         user_list = c.fetchall()
         print("user_list",user_list)
 

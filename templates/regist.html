@@ -1,23 +1,85 @@
+{% extends "material/base.html" %}
 {% block content %}
 
+<!DOCTYPE html>
+<html lang="ja">
 
-<div>
-ここはregist.htmlです<br>
-<br>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <link rel="stylesheet" href="../static/css/style.css">
+
+        <title>cookgate|ユーザー登録</title>
+</head>
+
+<header>
+        <div class="orange darken-1 white-text section center">
+                <h2><span class="" style="font-family: 'Comic Sans MS';">cookgate</span>ユーザー登録</h2>
+        </div>
+</header>
+
+<body>
+
+
         <!-- 名前とパスワードで会員登録するページを作る -->
-        <h3>ユーザー登録</h3>
 
         <!-- ルーティングは /regist メソッドはPOST（人に見られたくない情報！！）にする。 -->
+        <div class="center grey lighten-3 section">
         <form action="/regist" method="POST">
-                お名前：<input type="text" name="name"><br>
+
+                <div class="row container">
+
+                        <div class="input-field col s12">
+                                <input type="text" name="name">
+                                <label for="">お名前</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                                <input type="text" name="email">
+                                <label for="">メールアドレス</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                                <input type="password" name="password">
+                                <label for="">パスワード</label>
+                        </div>
+
+                        <!-- 足してみたけど動かないのでコメントアウト。DB側でメールアドレス不要にしておきます -->
+                        <div class="input-field col s12">
+                                <input type="text" name="email">
+                                <label for="">メールアドレス</label>
+                        </div>
+
+                </div>
+
+
+
+                <!-- お名前：<input type="text" name="name"><br>
                 パスワード：<input type="password" name="password"><br>
-                メールアドレス：<input type="text" name="email"><br>
-                <input type="submit" name="save" value="ユーザー登録する">
+                メールアドレス：<input type="text" name="email"><br> -->
+                <div class="row">
+                        <div class="col s4 offset-s4">
+                                <input type="submit" name="save" value="ユーザー登録する" class="btn orange darken-1">
+                        </div>
+                </div>
+
         </form>
-        <br>
+
 
         <!-- 既に登録済みの方向けリンク -->
-        <h4><a href="/login">既に登録済みの方はこちら</a></h4>
-</div>
+        <p class="right-align"><a href="/login" class="teal-text lighten-2">既に登録済みの方はこちら</a></p>
+        </div>
+</body>
+
+</html>
 
 {% endblock %}
