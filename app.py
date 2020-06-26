@@ -185,9 +185,11 @@ def dbtest():
         photo_list = c.fetchall()
         print("photos:",photo_list)
 
+        photo_num = len(photo_list)
+
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list,photo_num=photo_num)
 
     # ログインしていない場合：ゲストさん表示
     else:

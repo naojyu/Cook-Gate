@@ -51,30 +51,45 @@
             <div class="row orange darken-1">
                 <div class="col s12 m12 center">完成したお料理を写真に残しておきましょう</div>
 
-                <!-- 写真アップロードボタン -->
-                {% if user_id > 0 %}
-                <p>お料理写真はトップページのお料理アルバムで見られます</p>
-    
-                <!-- 画像ファイル登録・更新 -->
-                <form action="/upload" method="POST" enctype="multipart/form-data">
-                  <input type="hidden" name="name" value="{{course}}">
-                  <input type="file" name="upload">
-                  <br>
-                  <input type="submit" name="img-btn" value="画像登録">
-                  <br>
-                </form>
-                {% endif %}
-
-
                 <div class="col s12 m12 center">SNSシェア<br>
                     <a href="https://twitter.com/intent/tweet?button_hashtag=CookGate&ref_src=twsrc%5Etfw" 
                     class="twitter-hashtag-button" 
                     data-show-count="false"
                     data-text="お料理ができました！">
-                        Tweetする #CookGate
+                        Tweetする #Cookgate
                     </a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
+
+
+                <!-- 写真アップロードボタン -->
+                {% if user_id > 0 %}
+                <p></p>
+                <p class="center">お料理アルバムにも写真を登録してみましょう</p>
+    
+                <!-- 画像ファイル登録・更新 -->
+                <div class="center">
+                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="name" value="{{course}}">
+                    <input type="file" name="upload">
+                    <input type="submit" name="img-btn" value="登録">
+                    <br>
+                    </form>
+                    <br>
+                </div>
+            {% endif %}
+
+
+                <!-- <div class="col s12 m12 center">SNSシェア<br>
+                    <a href="https://twitter.com/intent/tweet?button_hashtag=CookGate&ref_src=twsrc%5Etfw" 
+                    class="twitter-hashtag-button" 
+                    data-show-count="false"
+                    data-text="お料理ができました！">
+                        Tweetする #Cookgate
+                    </a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div> -->
+                
             </div>
         </div>
 

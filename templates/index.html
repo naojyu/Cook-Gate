@@ -385,7 +385,7 @@
                             </div>
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
-                                    <a class="waves-effect waves-light btn-large orange darken-1">もう困らないコラム　お米に飛ぶ</a>
+                                    <a class="waves-effect waves-light btn-large orange darken-1">ごはんを炊いてみる</a>
                                 </span>
                             </div>
                         </div>
@@ -411,7 +411,7 @@
                             <div class="col s6 offset-s6">
                                 <span class="flow-text">
                                     <a
-                                        class="waves-effect waves-light btn-large orange darken-1">もう困らないコラム　食材や調味料の処分に飛ぶ</a>
+                                        class="waves-effect waves-light btn-large orange darken-1">食材や調味料の処分</a>
                                 </span>
                             </div>
                         </div>
@@ -434,8 +434,6 @@
             <div class="container">
                 <h4 class="center">{{user_info}} さんのステータス </h4>
                 {% if user_status == "-" %}
-                <p class="center">（ユーザーのみ。登録して記録を残してみませんか？）</p>
-
                 {% elif user_status == 0 %}
                 <p class="center">あなたのレベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</p>
                 <p class="center">お料理を作ると、レベルが上がります。</p>
@@ -475,12 +473,18 @@
             </div>
             
             {% if user_status == "-" %}
-            <p class="center">（ユーザーのみ。登録して記録を残してみませんか？）</p>
-            
+            <!-- 未ログインの時だけ、「新規登録」ボタンを表示する -->
+
+            <p class="center">（あしあと機能はユーザーのみ。登録して記録を残してみませんか？）</p>
+
+            <div class="col s12 center">
+                <a class="waves-effect waves-light btn orange darken-1" href="/regist">新規登録</a>
+            </div>
+                
             {% elif user_status == 0 %}
+            {% else %}
             <p class="center">（コンプリート画面からお料理写真を登録できます）</p>
 
-            {% else %}
             {% endif %}
 
 
@@ -492,12 +496,12 @@
 
                 <!-- python連携させてみるテスト。 -->
                 <!-- 写真のサイズがCSS側で制限されているようだ。 -->
-                {% for item in photo_list %}
                 <div class="row">
+                    {% for item in photo_list %}
                     <div class="col s12 m6">
                         <div class="card">
                             <div class="card-image">
-                                <img src="/static/user_img/{{item[0]}}" height="200px">
+                                <img src="/static/user_img/{{item[0]}}" >
                             </div>
                             <div class="card-content">
                                 <p>{{item[1]}}</p>
@@ -505,9 +509,31 @@
                         </div>
                     </div>
                     {% endfor %}
+                
+                    {% if user_status == "-" %}
+                    <p class="center">（ユーザーのみ。登録して記録を残してみませんか？）</p>
+
+                    {% else %}
+
+                        {% if photo_num == 0 %}
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="../static/img/pop_coming_soon.png" >
+                                    </div>
+                                    <div class="card-content">
+                                        <p>お料理の記念に、写真を登録しましょう！！<br>
+                                            （写真はコンプリート画面から登録できます）</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    
+                    {% endif %}
 
 
-                    <div class="row">
+                        <!--                         
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-image">
@@ -523,63 +549,9 @@
                                     <a href="#">This is a link</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="../static/img/don.jpg">
-                                    <span class="card-title">乾燥わかめとねぎの味噌汁</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of
-                                        information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img src="../static/img/don.jpg">
-                                        <span class="card-title">豚のしょうが焼き</span>
-                                    </div>
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of
-                                            information.
-                                            I am convenient because I require little markup to use effectively.
-                                        </p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">This is a link</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col s12 m6">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img src="../static/img/don.jpg">
-                                        <span class="card-title">好みのお肉とカット野菜のカレーライス</span>
-                                    </div>
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of
-                                            information.
-                                            I am convenient because I require little markup to use effectively.
-                                        </p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">This is a link</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        
                     </div>
                 </div>
                 {% endif %}
