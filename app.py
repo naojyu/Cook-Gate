@@ -197,6 +197,7 @@ def dbtest():
         course_num = "-"
         # ゲスト/ユーザーで表記分け用コード（消さないで！！）
         user_id = 0
+        print(user_id)
         return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
 
 
@@ -539,7 +540,7 @@ def do_upload():
         # upload photo
         upload = request.files["upload"]
         if not upload.filename.lower().endswith((".png", ".jpg", ".jpeg")):
-            return "Select only .png, .jpg, .jpeg files."
+            return "画像ファイルは.png, .jpg, .jpegのみ（ブラウザの戻るボタンで戻ってください）"
         
         # For other def
         save_path = get_save_path()
@@ -571,7 +572,7 @@ def do_upload():
         return redirect("/index")
     # ゲストさんがアクセスしたら、トップページへリダイレクト
     else:
-        return "Guest: reading only."
+        return redirect("/index")
 
 
 def get_save_path():
