@@ -13,8 +13,6 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-
-
     <link rel="stylesheet" href="../static/css/style.css">
 
     <title>cookgate</title>
@@ -41,7 +39,8 @@
                     {% if user_id >= 1 %}
                     <!-- ログインユーザー情報 -->
                     <li>ようこそ、{{user_info}} さん。</li>
-                    <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+                    <li>レベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+
                     <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
                     <li><a href="/logout">ログアウト</a></li>
 
@@ -52,9 +51,6 @@
                     <!-- 「ログイン」から、/loginへ遷移（python連携なし） ●-->
                     <li><a href="/login">ログイン</a></li>
                     {% endif %}
-
-                    <li><a href="collapsible.html">レベル</a></li>
-                    <li><a href="collapsible.html">コース完了率</a></li>
 
                 </ul>
             </div>
@@ -68,12 +64,14 @@
                 </ul>
             </div>
 
+            <!-- やなさんへ：これはサイドバー用だよね？ -->
             <ul class="sidenav" id="mobile-demo">
                 <!-- python連携：ユーザーネームとコース完了率を表示 -->
                 {% if user_id >= 1 %}
                 <!-- ログインユーザー情報 -->
                 <li style="color: #555;">ようこそ、{{user_info}} さん。</li>
-                <li style="color: #555;">コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+                <li style="color: #555;">レベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+
                 <!-- 「ログアウト」から、ログアウトさせています（htmlファイルなし） -->
                 <li><a href="/logout">ログアウト</a></li>
 
@@ -432,16 +430,23 @@
 
 
 
+
+
+
+
             <!-- 写真、お料理名、完了日時を表示させます。 -->
 
             <div class="container">
-                <h4 class="center">あなたのステータス </h4>
+                <h4 class="center">{{user_info}} さんのステータス </h4>
                 {% if user_status == "-" %}
                 （ユーザーのみの機能です。）
                 {% elif user_status == 0 %}
-                <p class="center">まだどのお料理も作っていません。</p>
+                <p class="center">あなたのレベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</p>
+                <p class="center">お料理を作ると、レベルが上がります。</p>
+                <p class="center">最初のお料理に挑戦しませんか？</p>
 
                 {% else %}
+                <p class="center">あなたのレベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</p>
                 {% endif %}
 
                 {% if user_status == "-" %}
@@ -469,6 +474,9 @@
 
 
 
+            <div>
+                <h4 class="center">{{user_info}} さんのお料理写真 </h4>
+            </div>
 
             <div>
                 <!-- 画像ファイル表示 -->
@@ -504,24 +512,7 @@
                             <div class="card">
                                 <div class="card-image">
                                     <img src="../static/img/don.jpg">
-                                    <span class="card-title">豚肉生姜焼き</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of
-                                        information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="../static/img/don.jpg">
-                                    <span class="card-title">サラダチキンのバンバンジー</span>
+                                    <span class="card-title">豚のしょうが焼き</span>
                                 </div>
                                 <div class="card-content">
                                     <p>I am a very simple card. I am good at containing small bits of
@@ -556,7 +547,7 @@
                                 <div class="card">
                                     <div class="card-image">
                                         <img src="../static/img/don.jpg">
-                                        <span class="card-title">豚肉生姜焼き</span>
+                                        <span class="card-title">豚のしょうが焼き</span>
                                     </div>
                                     <div class="card-content">
                                         <p>I am a very simple card. I am good at containing small bits of
@@ -574,25 +565,7 @@
                                 <div class="card">
                                     <div class="card-image">
                                         <img src="../static/img/don.jpg">
-                                        <span class="card-title">サラダチキンのバンバンジー</span>
-                                    </div>
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of
-                                            information.
-                                            I am convenient because I require little markup to use effectively.
-                                        </p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">This is a link</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col s12 m6">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img src="../static/img/don.jpg">
-                                        <span class="card-title">乾燥わかめとねぎの味噌汁</span>
+                                        <span class="card-title">好みのお肉とカット野菜のカレーライス</span>
                                     </div>
                                     <div class="card-content">
                                         <p>I am a very simple card. I am good at containing small bits of
@@ -609,9 +582,10 @@
                         </div>
                     </div>
                 </div>
-
-
+    
     </main>
+
+
 
     <footer class="page-footer orange darken-1">
         <div class="container">
