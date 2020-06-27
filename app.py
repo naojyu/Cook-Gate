@@ -521,7 +521,12 @@ app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+# うっかりアクセスされたとき
+@app.route("/upload",methods=["GET"])
+def check_upload():
+    return redirect("/error")
 
+# 写真アップロードボタンを押したとき
 @app.route("/upload",methods=["POST"])
 def do_upload():
     if "user_id" in session:
@@ -626,12 +631,14 @@ def logout():
 # 403エラー
 @app.errorhandler(403)
 def mistake403(code):
-    return 'There is a mistake in your url!'
+    error = 403
+    return render_template("error.html", error=error)
 
 # 404エラー
 @app.errorhandler(404)
 def notfound404(code):
-    return "404だよ！！見つからないよ！！！"
+    error = 403
+    return render_template("error.html", error=error)
 
 
 # ～～～～～～～～～～～～～～～～～～～～

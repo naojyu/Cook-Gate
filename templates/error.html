@@ -18,6 +18,7 @@
 
         <link rel="stylesheet" href="../static/css/style.css">
 
+
         <title>cookgate|403</title>
 </head>
 
@@ -32,15 +33,33 @@
     <div class="center grey lighten-3 section">
 
                 <div class="row container">
+
+                        {% if error == 403 %}
                         <div class="input-field col s12">
-                            <p>403 Forbidden</p>
-                            <p>アクセスしようとしたページは表示できませんでした。</p>
+                            <h2>403 Forbidden</h2>
+                            <h5>このページにはアクセスできません。</h5>
                         </div>
+
+                        {% elif error == 404 %}
+                        <div class="input-field col s12">
+                                <h2>404 Forbidden</h2>
+                                <h5>URLが間違っているか、リンクが切れているようです。</h5>
+                        </div>
+                        
+                        {% else %}
+                        <div class="input-field col s12">
+                                <h2>404 Forbidden</h2>
+                                <h5>URLが間違っているか、リンクが切れているようです。</h5>
+                        </div>
+
+                        {% endif %}
+    
                 </div>
 
 
                 <div class="col s12 center">
-                    <a class="waves-effect waves-light btn orange darken-1" href="/index">トップページへ</a>
+                        <h6><p><span style="font-family: 'Comic Sans MS';">cookgate</span>は、お料理を始めたいあなたを応援します。</p></h6>
+                        <a class="waves-effect waves-light btn orange darken-1" href="/index"><span style="font-family: 'Comic Sans MS'; text-transform: lowercase;">cookgate</span> トップページへ</a>
                 </div>
 
 
