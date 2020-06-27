@@ -185,9 +185,11 @@ def dbtest():
         photo_list = c.fetchall()
         print("photos:",photo_list)
 
+        photo_num = len(photo_list)
+
         c.close()
 
-        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list)
+        return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,level_sum=level_sum,level_max=level_max,photo_list=photo_list, user_id=user_id,user_list=user_list,photo_num=photo_num)
 
     # ログインしていない場合：ゲストさん表示
     else:
@@ -197,6 +199,7 @@ def dbtest():
         course_num = "-"
         # ゲスト/ユーザーで表記分け用コード（消さないで！！）
         user_id = 0
+        print(user_id)
         return render_template("index.html", user_info=user_info, user_status=user_status, user_rate=user_rate, course_num=course_num,user_id=user_id)
 
 
@@ -518,7 +521,12 @@ app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+# うっかりアクセスされたとき
+@app.route("/upload",methods=["GET"])
+def check_upload():
+    return redirect("/error")
 
+# 写真アップロードボタンを押したとき
 @app.route("/upload",methods=["POST"])
 def do_upload():
     if "user_id" in session:
@@ -539,7 +547,7 @@ def do_upload():
         # upload photo
         upload = request.files["upload"]
         if not upload.filename.lower().endswith((".png", ".jpg", ".jpeg")):
-            return "Select only .png, .jpg, .jpeg files."
+            return "画像ファイルは.png, .jpg, .jpegのみ（ブラウザの戻るボタンで戻ってください）"
         
         # For other def
         save_path = get_save_path()
@@ -571,7 +579,7 @@ def do_upload():
         return redirect("/index")
     # ゲストさんがアクセスしたら、トップページへリダイレクト
     else:
-        return "Guest: reading only."
+        return redirect("/index")
 
 
 def get_save_path():
@@ -605,7 +613,10 @@ def handle_over_max_file_size(error):
 
 
 
-
+# ～～～～～～～～～～～～～～～～～～～～
+@app.route("/error")
+def error():
+    return render_template("error.html")
 
 
 # ～～～～～～～～～～～～～～～～～～～～
@@ -620,12 +631,14 @@ def logout():
 # 403エラー
 @app.errorhandler(403)
 def mistake403(code):
-    return 'There is a mistake in your url!'
+    error = 403
+    return render_template("error.html", error=error)
 
 # 404エラー
 @app.errorhandler(404)
 def notfound404(code):
-    return "404だよ！！見つからないよ！！！"
+    error = 403
+    return render_template("error.html", error=error)
 
 
 # ～～～～～～～～～～～～～～～～～～～～

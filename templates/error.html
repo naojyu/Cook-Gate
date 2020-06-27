@@ -1,0 +1,72 @@
+{% extends "material/base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <link rel="stylesheet" href="../static/css/style.css">
+
+
+        <title>cookgate|403</title>
+</head>
+
+<header>
+        <div class="orange darken-1 white-text section center">
+                <h2><span class="" style="font-family: 'Comic Sans MS';">cookgate</span></h2>
+        </div>
+</header>
+
+<body>
+
+    <div class="center grey lighten-3 section">
+
+                <div class="row container">
+
+                        {% if error == 403 %}
+                        <div class="input-field col s12">
+                            <h2>403 Forbidden</h2>
+                            <h5>このページにはアクセスできません。</h5>
+                        </div>
+
+                        {% elif error == 404 %}
+                        <div class="input-field col s12">
+                                <h2>404 Forbidden</h2>
+                                <h5>URLが間違っているか、リンクが切れているようです。</h5>
+                        </div>
+                        
+                        {% else %}
+                        <div class="input-field col s12">
+                                <h2>404 Forbidden</h2>
+                                <h5>URLが間違っているか、リンクが切れているようです。</h5>
+                        </div>
+
+                        {% endif %}
+    
+                </div>
+
+
+                <div class="col s12 center">
+                        <h6><p><span style="font-family: 'Comic Sans MS';">cookgate</span>は、お料理を始めたいあなたを応援します。</p></h6>
+                        <a class="waves-effect waves-light btn orange darken-1" href="/index"><span style="font-family: 'Comic Sans MS'; text-transform: lowercase;">cookgate</span> トップページへ</a>
+                </div>
+
+
+
+        </div>
+</body>
+
+</html>
+
+{% endblock %}

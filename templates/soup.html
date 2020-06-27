@@ -1,6 +1,7 @@
 {% block content %}
 
 
+
 <div>
   <p>
     -------------------------<br>
@@ -14,19 +15,20 @@
       <!-- ログイン -->
       {% else %}
       <li>{{user_info}}さん</li>
-      <li>コース完了率：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
+      <li>レベル：{{user_status}}／{{course_num}}（{{user_rate}}％）</li>
       {% endif %}
      </ul>
     -------------------------<br>
     
     <!-- チェックボタン：お味噌汁=2 -->
-    <p>※レベルアップボタン（レベル値取れるけど毎回リロードしちゃう）</p>
+
+    <!-- <p>※レベルアップボタン（レベル値取れるけど毎回リロードしちゃう）</p>
     <form action="/level" method="POST">
       <input type="hidden" name="name" value="2">
       <input type="submit" name="check" value="できました" /><br>
-    </form>
+    </form> -->
     
-    -------------------------<br>
+
     <!-- 完成おめでとうボタン -->
     <br>
     <form action="/complete" method="POST">
